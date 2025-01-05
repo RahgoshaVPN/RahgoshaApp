@@ -65,10 +65,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
     super.initState();
 
     flutterV2ray
-      .initializeV2Ray(
-        notificationIconResourceType: "mipmap",
-        notificationIconResourceName: "launcher_icon"
-      );
+      .initializeV2Ray();
     
     flutterV2ray.getCoreVersion().then((version) {
       logger.debug("Core version: $version");
