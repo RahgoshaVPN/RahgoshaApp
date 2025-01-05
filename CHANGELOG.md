@@ -1,3 +1,10 @@
+# 1.0.0-beta.1 (2025-01-05)
+
+
+### Features
+
+* Update app version display and cache version information ([80a9511](https://github.com/RahgoshaVPN/RahgoshaAPP/commit/80a95118b264977bf616891658844434558447a5))
+
 ## [0.0.2](https://github.com/RahgoshaVPN/RahgoshaAPP/compare/v0.0.1...v0.0.2) (2025-01-05)
 
 
