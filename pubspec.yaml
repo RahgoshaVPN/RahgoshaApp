@@ -46,6 +46,7 @@ dependencies:
   easy_localization: ^3.0.7
   flutter_native_splash: ^2.3.10
   package_info_plus: ^8.1.2
+  provider: ^6.1.2
   # dio: ^5.7.0
 
 dev_dependencies:
