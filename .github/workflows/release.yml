@@ -6,6 +6,11 @@ on:
       - master
       - dev
       - beta
+    paths:
+      - src/**
+      - lib/**
+      - pubspec.yaml
+
 
 permissions: write-all
 
