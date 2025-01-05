@@ -32,10 +32,11 @@ jobs:
 
       - name: Build APKs
         uses: ./.github/workflows/build.yml
-        secrets:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          secrets:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-          
+
       - name: Download APK artifacts
         uses: actions/download-artifact@v3
         with:
