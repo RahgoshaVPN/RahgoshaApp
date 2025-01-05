@@ -1,3 +1,12 @@
+# [1.0.0-beta.2](https://github.com/RahgoshaVPN/RahgoshaAPP/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2025-01-05)
+
+
+### Bug Fixes
+
+* Remove output directory specification for x86_64 APK build in GitHub Actions workflow ([a5e3672](https://github.com/RahgoshaVPN/RahgoshaAPP/commit/a5e3672aa25611a58955db27897a9abd4c829b2b))
+* Update APK build paths in GitHub Actions workflow ([fc64260](https://github.com/RahgoshaVPN/RahgoshaAPP/commit/fc6426090f63c27b0134e04c2d88d67efbc7f368))
+* Update GitHub Actions workflow to streamline APK builds and output directory ([cc9ac25](https://github.com/RahgoshaVPN/RahgoshaAPP/commit/cc9ac25238bb6a0bcede80184b78ec0c8ab18a8e))
+
 # 1.0.0-beta.1 (2025-01-05)
 
 
