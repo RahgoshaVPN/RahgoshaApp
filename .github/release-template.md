@@ -2,9 +2,12 @@
   <img src="https://img.shields.io/github/downloads/RahgoshaVPN/RahgoshaAPP/<%= nextRelease.gitTag %>/total?style=flat-square&logo=github" alt="Release Downloads">
 </div>
 
-
 <%= nextRelease.notes %>
 
+---
+
+### See the full changelog here:
+[CHANGELOG.md](https://github.com/RahgoshaVPN/RahgoshaAPP/blob/<%= nextRelease.gitTag %>/CHANGELOG.md)
 
 ## Download for Android
 
