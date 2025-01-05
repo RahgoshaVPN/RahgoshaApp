@@ -62,8 +62,23 @@ jobs:
           flutter build apk --release
           mv build/app/outputs/flutter-apk/app-release.apk dist/Rahgosha-Android-universal.apk
 
+      - name: Compress APK files
+        run: |
+          mkdir -p compressed
+          for apk in dist/*.apk; do
+            if [ -f "$apk" ]; then
+              zip -j compressed/$(basename "$apk").zip "$apk"
+            fi
+          done
+        
+      - name: Upload APK artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: apk-files
+          path: compressed/*.zip
+        
 
-
+      - name: Upload artifect
 
       - name: Run semantic-release
         run: npx semantic-release
