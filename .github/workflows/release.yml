@@ -1,3 +1,4 @@
+# .github/workflows/release.yml
 name: Release
 
 on:
@@ -29,54 +30,17 @@ jobs:
           npm install --save-dev semantic-release @semantic-release/changelog @semantic-release/git @semantic-release/github @semantic-release/exec @semantic-release/gitlab @semantic-release/npm @semantic-release/release-notes-generator @semantic-release/git @semantic-release/changelog @semantic-release/exec 
           npm i handlebars@4.7.6
 
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.27.0'
-            
-      - name: Install dependencies
-        run: flutter pub get
+      - name: Build APKs
+        uses: ./.github/workflows/build.yml
+        secrets:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      
-        
-      - name: Create dist directory
-        run: mkdir -p dist
-
-      - name: Build APK for arm64-v8a
-        run: |
-          flutter build apk --target-platform android-arm64 --release 
-          mv build/app/outputs/flutter-apk/app-release.apk dist/Rahgosha-Android-arm64.apk
-
-      - name: Build APK for armeabi-v7a
-        run: |
-          flutter build apk --target-platform android-arm --release 
-          mv build/app/outputs/flutter-apk/app-release.apk dist/Rahgosha-Android-arm7.apk
-
-      - name: Build APK for x86_64
-        run: |
-          flutter build apk --target-platform android-x64 --release 
-          mv build/app/outputs/flutter-apk/app-release.apk dist/Rahgosha-Android-x86_64.apk
-
-      - name: Build universal APK
-        run: |
-          flutter build apk --release
-          mv build/app/outputs/flutter-apk/app-release.apk dist/Rahgosha-Android-universal.apk
-
-      - name: Compress APK files
-        run: |
-          mkdir -p compressed
-          for apk in dist/*.apk; do
-            if [ -f "$apk" ]; then
-              zip -j compressed/$(basename "$apk").zip "$apk"
-            fi
-          done
-        
-      - name: Upload APK artifacts
-        uses: actions/upload-artifact@v3
+          
+      - name: Download APK artifacts
+        uses: actions/download-artifact@v3
         with:
           name: apk-files
-          path: compressed/*.zip
-        
+          path: dist/
 
       - name: Run semantic-release
         run: npx semantic-release
