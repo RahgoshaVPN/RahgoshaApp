@@ -146,8 +146,12 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
     for (var server in servers) {
         logger.debug(server);
       try {
+        V2RayURL parsedProfile = FlutterV2ray.parseFromURL(server);
+        dynamic fullConfiguration = jsonDecode(parsedProfile.getFullConfiguration());
+        fullConfiguration["_url"] = server;
+        fullConfiguration["_remark"] = parsedProfile.remark;
         parsedServers.add(
-        FlutterV2ray.parseFromURL(server).getFullConfiguration()
+          jsonEncode(fullConfiguration)
         );
       } catch (e) {
         logger.warning("Failed to parse server: $server");
