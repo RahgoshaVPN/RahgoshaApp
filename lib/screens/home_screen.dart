@@ -4,6 +4,7 @@ import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_v2ray/flutter_v2ray.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:provider/provider.dart';
 import 'package:rahgosha/logger.dart';
 import 'package:rahgosha/utils/appcache.dart';
 import 'package:rahgosha/utils/locations.dart';
@@ -52,6 +53,9 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
 
   late final FlutterV2ray flutterV2ray = FlutterV2ray(
     onStatusChanged: (status) {
+      if (status.state != v2rayStatus.value.state) {
+        context.read<V2RayStatusNotifier>().updateStatus(status);
+      }
       v2rayStatus.value = status;
     },
   );

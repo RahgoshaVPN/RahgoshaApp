@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:logging/logging.dart';
+import 'package:provider/provider.dart';
 import 'package:rahgosha/logger.dart';
 import 'package:rahgosha/screens/home_screen.dart';
 import 'package:rahgosha/screens/servers_screen.dart';
@@ -23,17 +24,22 @@ void main() async {
 
   cache.set("version", packageInfo.version);
 
-  runApp(
-    EasyLocalization(
-      supportedLocales: [
-        Locale('en', 'US'),
-        Locale('fa', 'IR'),
+runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => V2RayStatusNotifier()),
       ],
-      path: 'assets/translations',
-      saveLocale: true,
-      fallbackLocale: Locale('en', 'US'),
-      startLocale: Locale('en', 'US'),
-      child: MyApp(),
+      child: EasyLocalization(
+        supportedLocales: [
+          Locale('en', 'US'),
+          Locale('fa', 'IR'),
+        ],
+        path: 'assets/translations',
+        saveLocale: true,
+        fallbackLocale: Locale('en', 'US'),
+        startLocale: Locale('en', 'US'),
+        child: MyApp(),
+      ),
     ),
   );
 }
