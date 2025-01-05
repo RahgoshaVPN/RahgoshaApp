@@ -31,7 +31,7 @@ jobs:
           npm i handlebars@4.7.6
 
       - name: Build APKs
-        uses: ./.github/workflows/build.yml
+        uses: ./.github/workflows/build.yml@master
         # with:
         # secrets:
         #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
