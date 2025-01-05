@@ -33,29 +33,37 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.27.0'
-
+            
       - name: Install dependencies
         run: flutter pub get
 
+      
+        
+      - name: Create dist directory
+        run: mkdir -p dist
+
       - name: Build APK for arm64-v8a
-        run: flutter build apk --target-platform android-arm64 --release
+        run: |
+          flutter build apk --target-platform android-arm64 --release --output-dir dist
+          mv dist/app-release.apk dist/Rahgosha-Android-arm64.apk
 
       - name: Build APK for armeabi-v7a
-        run: flutter build apk --target-platform android-arm --release
+        run: |
+          flutter build apk --target-platform android-arm --release --output-dir dist
+          mv dist/app-release.apk dist/Rahgosha-Android-arm7.apk
 
       - name: Build APK for x86_64
-        run: flutter build apk --target-platform android-x64 --release
+        run: |
+          flutter build apk --target-platform android-x64 --release --output-dir dist
+          mv dist/app-release.apk dist/Rahgosha-Android-x86_64.apk
 
       - name: Build universal APK
-        run: flutter build apk --release
-
-      - name: Create dist directory
-        run: 
-            mkdir -p dist
-
-      - name: Move APKs to dist directory
         run: |
-          find build/app/outputs/flutter-apk/ -name "*.apk" -exec mv {} dist/ \;
+          flutter build apk --release --output-dir dist
+          mv dist/app-release.apk dist/Rahgosha-Android-universal.apk
+
+
+
 
       - name: Run semantic-release
         run: npx semantic-release
