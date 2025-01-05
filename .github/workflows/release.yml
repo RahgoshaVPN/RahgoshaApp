@@ -14,22 +14,17 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        target-platform:
-          - android-arm64
-          - android-arm
-          - android-x64
-          - universal
-        apk-name:
-          - Rahgosha-Android-arm64.apk
-          - Rahgosha-Android-arm7.apk
-          - Rahgosha-Android-x86_64.apk
-          - Rahgosha-Android-universal.apk
+        config:
+          - { target-platform: android-arm64, apk-name: Rahgosha-Android-arm64.apk }
+          - { target-platform: android-arm, apk-name: Rahgosha-Android-arm7.apk }
+          - { target-platform: android-x64, apk-name: Rahgosha-Android-x86_64.apk }
+          - { target-platform: universal, apk-name: Rahgosha-Android-universal.apk }
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Setup Flutter
-        uses: subosito/flutter-action@v4
+        uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.27.0"
 
@@ -38,12 +33,13 @@ jobs:
 
       - name: Build APK
         run: |
-          if [ "${{ matrix.target-platform }}" == "universal" ]; then
+          if [ "${{ matrix.config.target-platform }}" == "universal" ]; then
             flutter build apk --release
           else
-            flutter build apk --target-platform ${{ matrix.target-platform }} --release
+            flutter build apk --target-platform ${{ matrix.config.target-platform }} --release
           fi
-          mv build/app/outputs/flutter-apk/app-release.apk dist/${{ matrix.apk-name }}
+          mv build/app/outputs/flutter-apk/app-release.apk dist/${{ matrix.config.apk-name }}
+      
 
       - name: Upload APK artifacts
         uses: actions/upload-artifact@v3
