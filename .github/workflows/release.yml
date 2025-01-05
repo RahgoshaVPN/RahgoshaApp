@@ -1,0 +1,64 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+      - dev
+      - beta
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install semantic-release dependencies
+        run: |
+          npm install --save-dev semantic-release @semantic-release/changelog @semantic-release/git @semantic-release/github @semantic-release/exec @semantic-release/gitlab @semantic-release/npm @semantic-release/release-notes-generator @semantic-release/git @semantic-release/changelog @semantic-release/exec 
+          npm i handlebars@4.7.6
+
+    #   - name: Set up Flutter
+    #     uses: subosito/flutter-action@v2
+    #     with:
+    #       flutter-version: '3.27.0'
+
+    #   - name: Install dependencies
+    #     run: flutter pub get
+
+    #   - name: Build APK for arm64-v8a
+    #     run: flutter build apk --target-platform android-arm64 --release
+
+    #   - name: Build APK for armeabi-v7a
+    #     run: flutter build apk --target-platform android-arm --release
+
+    #   - name: Build APK for x86_64
+    #     run: flutter build apk --target-platform android-x64 --release
+
+    #   - name: Build universal APK
+    #     run: flutter build apk --release
+
+    #   - name: Create dist directory
+    #     run: 
+    #         mkdir -p dist
+    #         peintf "%s" "Fake .apk file" > ./dist/fake.apk
+
+    #   - name: Move APKs to dist directory
+    #     run: |
+    #       find build/app/outputs/flutter-apk/ -name "*.apk" -exec mv {} dist/ \;
+
+      - name: Run semantic-release
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
