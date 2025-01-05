@@ -18,8 +18,8 @@ jobs:
           - Rahgosha-Android-x86_64.apk
           - Rahgosha-Android-universal.apk
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      # - name: Checkout code
+      #   uses: actions/checkout@v3
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v4
