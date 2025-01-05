@@ -5,16 +5,23 @@ import 'package:logging/logging.dart';
 import 'package:rahgosha/logger.dart';
 import 'package:rahgosha/screens/home_screen.dart';
 import 'package:rahgosha/screens/servers_screen.dart';
+import 'package:rahgosha/utils/appcache.dart';
 import 'package:rahgosha/utils/tools.dart';
 import 'package:rahgosha/widgets/app_bar.dart';
 import 'package:rahgosha/widgets/drawer.dart';
 import 'package:rahgosha/widgets/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await _initializeApp();
+  final packageInfo = await PackageInfo.fromPlatform();
+
+  cache.set("version", packageInfo.version);
 
   runApp(
     EasyLocalization(
