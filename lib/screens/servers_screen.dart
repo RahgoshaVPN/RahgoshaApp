@@ -43,33 +43,39 @@ class ServersScreenState extends State<ServersScreen> with AutomaticKeepAliveCli
       color: themeColors.backgroundColor,
       child: Row(
         children: [
-          if (_selectedIndex == index)
             Container(
               width: 5,
-              height: 40,
+              height: 50,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: themeColors.primaryColor,
+                color: _selectedIndex == index ? 
+                themeColors.primaryColor : themeColors.backgroundColor,
               ),
             ),
           Expanded(
-            child: ListTile(
-              title: Text(
-                name,
-                style: TextStyle(
-                  color: themeColors.secondaryTextColor,
-                ),
-              ),
+            child: GestureDetector(
               onTap: () {
                 setState(() {
                   logger.debug("Index: $index");
                   _selectedIndex = index;
                 });
               },
+
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                child: Text(
+                  name,
+                  style: TextStyle(
+                    color: themeColors.secondaryTextColor,
+                    fontSize: 16
+                  ),
+                ),
+              ),
             ),
           ),
         ],
       ),
     );
   }
+
 }
