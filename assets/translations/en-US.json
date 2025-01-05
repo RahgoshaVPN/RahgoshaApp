@@ -1,0 +1,10 @@
+{
+    "app_name": "Rahgosha",
+    "select_language": "Select Language",
+    "connecting": "CONNECTING...",
+    "connected": "CONNECTED",
+    "disconnected": "DISCONNECTED",
+    "loading": "Loading...",
+    "loading_storage": "Loading storage...",
+    "loading_cache": "Loading cache..."
+}

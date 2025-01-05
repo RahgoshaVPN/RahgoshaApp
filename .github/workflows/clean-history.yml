@@ -1,0 +1,38 @@
+name: Clean History
+
+permissions:
+  contents: write
+
+on:
+  workflow_dispatch:
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository Contents
+        uses: actions/checkout@v4
+
+      - name: Clean Up Files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          # Create an orphan branch to start fresh
+          git checkout --orphan latest_branch
+          
+          # Remove all files from the new branch
+          git rm -r --cached .
+          
+          # Add all files back (including the .gitignore and .gitattributes, etc.)
+          git add .
+          
+          # Create an initial commit
+          git commit -am "Initial commit"
+          
+          # Delete the old master branch and rename the new branch to master
+          git branch -D master
+          git branch -m master
+          
+          # Force push the new master branch to the remote repository
+          git push -f origin master
