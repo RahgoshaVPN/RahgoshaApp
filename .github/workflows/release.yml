@@ -1,4 +1,3 @@
-# .github/workflows/release.yml
 name: Release
 
 on:
@@ -8,14 +7,53 @@ on:
       - dev
       - beta
 
-permissions:
-  contents: write
-  issues: write
+permissions: write-all
 
 jobs:
-  release:
+  build-apks:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target-platform:
+          - android-arm64
+          - android-arm
+          - android-x64
+          - universal
+        apk-name:
+          - Rahgosha-Android-arm64.apk
+          - Rahgosha-Android-arm7.apk
+          - Rahgosha-Android-x86_64.apk
+          - Rahgosha-Android-universal.apk
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v4
+        with:
+          flutter-version: "3.27.0"
+
+      - name: Create dist directory
+        run: mkdir -p dist
+
+      - name: Build APK
+        run: |
+          if [ "${{ matrix.target-platform }}" == "universal" ]; then
+            flutter build apk --release
+          else
+            flutter build apk --target-platform ${{ matrix.target-platform }} --release
+          fi
+          mv build/app/outputs/flutter-apk/app-release.apk dist/${{ matrix.apk-name }}
+
+      - name: Upload APK artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: apk-files
+          path: dist/
+
+  release:
+    needs: build-apks
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -30,14 +68,7 @@ jobs:
           npm install --save-dev semantic-release @semantic-release/changelog @semantic-release/git @semantic-release/github @semantic-release/exec @semantic-release/gitlab @semantic-release/npm @semantic-release/release-notes-generator @semantic-release/git @semantic-release/changelog @semantic-release/exec 
           npm i handlebars@4.7.6
 
-      - name: Build APKs
-        uses: ./.github/workflows/build.yml@master
-        # with:
-        # secrets:
-        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-
-      - name: Download APK artifacts
+      - name: Download APK Artifacts
         uses: actions/download-artifact@v3
         with:
           name: apk-files
