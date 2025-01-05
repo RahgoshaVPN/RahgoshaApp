@@ -54,7 +54,7 @@ jobs:
 
       - name: Build APK for x86_64
         run: |
-          flutter build apk --target-platform android-x64 --release --output-dir dist
+          flutter build apk --target-platform android-x64 --release 
           mv build/app/outputs/flutter-apk/app-release.apk dist/Rahgosha-Android-x86_64.apk
 
       - name: Build universal APK
