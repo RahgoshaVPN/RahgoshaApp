@@ -4,7 +4,12 @@ const path = require("path");
 const templatePath = path.join(__dirname, ".github", "release-template.md");
 
 module.exports = {
-  branches: ["master", { name: "beta", prerelease: true }],
+  branches: [
+    "master",
+    { name: "beta", prerelease: "beta" },
+    { name: "dev", prerelease: "dev" },
+    { name: "alpha", prerelease: "alpha" } 
+  ],
   repositoryUrl: "https://github.com/RahgoshaVPN/RahgoshaAPP",
   plugins: [
     "@semantic-release/commit-analyzer",
@@ -20,7 +25,7 @@ module.exports = {
     [
       "@semantic-release/exec",
       {
-        prepareCmd: `
+        publishCmd: `
           node -e "
           const fs = require('fs');
           const path = require('path');
