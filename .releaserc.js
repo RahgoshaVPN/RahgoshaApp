@@ -18,29 +18,27 @@ module.exports = {
       },
     ],
     [
+      "@semantic-release/exec",
+      {
+        prepareCmd: `
+          node -e "
+          const fs = require('fs');
+          const path = require('path');
+          const pubspecPath = path.resolve('pubspec.yaml');
+          const versionRegex = /^version:\\s\\d+\\.\\d+\\.\\d+.*$/m;
+          const pubspecContent = fs.readFileSync(pubspecPath, 'utf8');
+          const updatedContent = pubspecContent.replace(versionRegex, 'version: ${nextRelease.version}');
+          fs.writeFileSync(pubspecPath, updatedContent, 'utf8');
+          console.log('Updated pubspec.yaml version to ${nextRelease.version}');
+          "
+        `,
+      },
+    ],
+    [
       "@semantic-release/git",
       {
         assets: ["CHANGELOG.md", "pubspec.yaml"],
         message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
-      },
-    ],
-    [
-      {
-        name: "update-pubspec-version",
-        generateNotes: async (pluginConfig, context) => {
-          // Custom logic to update the version in pubspec.yaml
-          const pubspecPath = path.resolve("pubspec.yaml");
-          const versionRegex = /^version:\s\d+\.\d+\.\d+.*$/m;
-          const pubspecContent = fs.readFileSync(pubspecPath, "utf8");
-
-          const updatedContent = pubspecContent.replace(
-            versionRegex,
-            `version: ${context.nextRelease.version}`
-          );
-
-          fs.writeFileSync(pubspecPath, updatedContent, "utf8");
-          context.logger.log(`Updated pubspec.yaml version to ${context.nextRelease.version}`);
-        },
       },
     ],
   ],

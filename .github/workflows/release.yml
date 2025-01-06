@@ -45,7 +45,7 @@ jobs:
           npm install --save-dev semantic-release @semantic-release/changelog @semantic-release/git @semantic-release/github @semantic-release/exec @semantic-release/gitlab @semantic-release/npm @semantic-release/release-notes-generator @semantic-release/git @semantic-release/changelog @semantic-release/exec 
 
       - name: Run semantic-release (Update Version)
-        run: npx semantic-release --no-ci --branches "${{ github.ref_name }}" --plugins="update-pubspec-version,@semantic-release/commit-analyzer,@semantic-release/release-notes-generator,@semantic-release/changelog,@semantic-release/npm,@semantic-release/git"
+        run: npx semantic-release --no-ci --branches "${{ github.ref_name }}" --plugins="@semantic-release/commit-analyzer,@semantic-release/release-notes-generator,@semantic-release/changelog,@semantic-release/exec"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create dist directory
