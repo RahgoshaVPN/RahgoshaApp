@@ -27,9 +27,9 @@ module.exports = {
           const pubspecPath = path.resolve('pubspec.yaml');
           const versionRegex = /^version:\\s\\d+\\.\\d+\\.\\d+.*$/m;
           const pubspecContent = fs.readFileSync(pubspecPath, 'utf8');
-          const updatedContent = pubspecContent.replace(versionRegex, 'version: ${nextRelease.version}');
+          const updatedContent = pubspecContent.replace(versionRegex, 'version: \${nextRelease.version}+${process.env.BUILD_NUMBER}');
           fs.writeFileSync(pubspecPath, updatedContent, 'utf8');
-          console.log('Updated pubspec.yaml version to ${nextRelease.version}');
+          console.log('Updated pubspec.yaml version to \${nextRelease.version}+${process.env.BUILD_NUMBER}');
           "
         `,
       },
