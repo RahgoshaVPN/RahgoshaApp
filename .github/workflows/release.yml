@@ -47,7 +47,7 @@ jobs:
       - name: Run semantic-release (Update Version)
         run: |
           export BUILD_NUMBER=${{github.run_number}}
-          npx semantic-release --extends ./semantic-release-version.js
+          npx semantic-release --dry-run --extends ./semantic-release-version.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create dist directory
