@@ -23,21 +23,10 @@ module.exports = {
       },
     ],
     [
-      "@semantic-release/exec",
-      {
-        publishCmd: `
-          node -e "
-          const fs = require('fs');
-          const path = require('path');
-          const pubspecPath = path.resolve('pubspec.yaml');
-          const versionRegex = /^version:\\s\\d+\\.\\d+\\.\\d+.*$/m;
-          const pubspecContent = fs.readFileSync(pubspecPath, 'utf8');
-          const updatedContent = pubspecContent.replace(versionRegex, 'version: \${nextRelease.version}+${process.env.BUILD_NUMBER}');
-          fs.writeFileSync(pubspecPath, updatedContent, 'utf8');
-          console.log('Updated pubspec.yaml version to \${nextRelease.version}+${process.env.BUILD_NUMBER}');
-          "
-        `,
-      },
+        "@semantic-release/exec",
+        {
+          prepareCmd: "node .github/change-version.js \"${nextRelease.version}\""
+        },
     ],
     [
       "@semantic-release/git",

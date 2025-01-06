@@ -47,7 +47,7 @@ jobs:
       - name: Run semantic-release (Update Version)
         run: |
           export BUILD_NUMBER=${{github.run_number}}
-          npx semantic-release --no-ci --branches "${{ github.ref_name }}" --plugins="@semantic-release/commit-analyzer,@semantic-release/release-notes-generator,@semantic-release/changelog,@semantic-release/exec"
+          npx semantic-release --extends ./semantic-release-version.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create dist directory
@@ -92,6 +92,6 @@ jobs:
           path: dist/
 
       - name: Run semantic-release
-        run: npx semantic-release
+        run: npx semantic-release --extends ./semantic-release-github.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
