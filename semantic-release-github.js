@@ -10,7 +10,6 @@ module.exports = {
     { name: "dev", prerelease: "dev" },
     { name: "alpha", prerelease: "alpha" } 
   ],
-  repositoryUrl: "https://github.com/RahgoshaVPN/RahgoshaAPP",
   plugins: [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
