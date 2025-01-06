@@ -6,6 +6,7 @@ on:
       - master
       - dev
       - beta
+      - alpha
     paths:
       - src/**
       - lib/**
@@ -33,6 +34,20 @@ jobs:
         with:
           flutter-version: "3.27.0"
 
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+  
+      - name: Install semantic-release dependencies
+        run: |
+          npm install --save-dev semantic-release @semantic-release/changelog @semantic-release/git @semantic-release/github @semantic-release/exec @semantic-release/gitlab @semantic-release/npm @semantic-release/release-notes-generator @semantic-release/git @semantic-release/changelog @semantic-release/exec 
+
+      - name: Run semantic-release (Update Version)
+        run: npx semantic-release --no-ci --branches "${{ github.ref_name }}" --plugins="update-pubspec-version,@semantic-release/commit-analyzer,@semantic-release/release-notes-generator,@semantic-release/changelog,@semantic-release/npm,@semantic-release/git"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create dist directory
         run: mkdir -p dist
 
@@ -67,7 +82,6 @@ jobs:
       - name: Install semantic-release dependencies
         run: |
           npm install --save-dev semantic-release @semantic-release/changelog @semantic-release/git @semantic-release/github @semantic-release/exec @semantic-release/gitlab @semantic-release/npm @semantic-release/release-notes-generator @semantic-release/git @semantic-release/changelog @semantic-release/exec 
-          npm i handlebars@4.7.6
 
       - name: Download APK Artifacts
         uses: actions/download-artifact@v3
