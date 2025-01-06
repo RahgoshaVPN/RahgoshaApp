@@ -92,6 +92,8 @@ jobs:
           path: dist/
 
       - name: Run semantic-release
-        run: npx semantic-release --extends ./semantic-release-github.js
+        run: | 
+          export BUILD_NUMBER=${{github.run_number}}
+          npx semantic-release --extends ./semantic-release-github.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
