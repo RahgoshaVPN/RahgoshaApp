@@ -376,6 +376,12 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
   Widget build(BuildContext context) {
     super.build(context);
 
+  Future<List<Widget>> optionsFuture = loadOptions(
+    handleServerSelection,
+    selectedServer,
+    ["DE", "FI", "NL", "FR", "US", "CA", "GB"],
+  );
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -392,7 +398,8 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                         builder: (context) {
                           return ServerSelectionModal(
                           onServerSelected: handleServerSelection ,
-                          selectedServer: selectedServer,
+                          selectedServer: getUserChoice(),
+                          optionsFuture: optionsFuture,
                           );
                         },
                       );
