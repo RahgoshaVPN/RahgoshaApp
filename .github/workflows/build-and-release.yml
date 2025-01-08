@@ -1,0 +1,101 @@
+name: Build And Release
+
+on:
+  push:
+    branches:
+      - master
+      - dev
+      - beta
+      - alpha
+    paths:
+      - src/**
+      - lib/**
+      - pubspec.yaml
+
+
+permissions: write-all
+
+jobs:
+  build-apks:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        config:
+          - { target-platform: android-arm64, apk-name: Rahgosha-Android-arm64.apk }
+          - { target-platform: android-arm, apk-name: Rahgosha-Android-arm7.apk }
+          - { target-platform: android-x64, apk-name: Rahgosha-Android-x86_64.apk }
+          - { target-platform: universal, apk-name: Rahgosha-Android-universal.apk }
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.27.0"
+
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+  
+      - name: Install semantic-release dependencies
+        run: |
+          npm i --save-dev conventional-changelog-conventionalcommits
+          npm install --save-dev semantic-release @semantic-release/changelog @semantic-release/git @semantic-release/github @semantic-release/exec @semantic-release/gitlab @semantic-release/npm @semantic-release/release-notes-generator @semantic-release/git @semantic-release/changelog @semantic-release/exec 
+
+      - name: Run semantic-release (Update Version)
+        run: |
+          export BUILD_NUMBER=${{github.run_number}}
+          npx semantic-release --dry-run --extends ./semantic-release-version.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create dist directory
+        run: mkdir -p dist
+
+      - name: Build APK
+        run: |
+          if [ "${{ matrix.config.target-platform }}" == "universal" ]; then
+            flutter build apk --release
+          else
+            flutter build apk --target-platform ${{ matrix.config.target-platform }} --release
+          fi
+          mv build/app/outputs/flutter-apk/app-release.apk dist/${{ matrix.config.apk-name }}
+      
+
+      - name: Upload APK artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: apk-files
+          path: dist/
+
+  release:
+    needs: build-apks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install semantic-release dependencies
+        run: |
+          npm i --save-dev conventional-changelog-conventionalcommits
+          npm install --save-dev semantic-release @semantic-release/changelog @semantic-release/git @semantic-release/github @semantic-release/exec @semantic-release/gitlab @semantic-release/npm @semantic-release/release-notes-generator @semantic-release/git @semantic-release/changelog @semantic-release/exec 
+
+      - name: Download APK Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: apk-files
+          path: dist/
+
+      - name: Run semantic-release
+        run: | 
+          export BUILD_NUMBER=${{github.run_number}}
+          npx semantic-release --extends ./semantic-release-github.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

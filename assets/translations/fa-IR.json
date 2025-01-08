@@ -1,0 +1,10 @@
+{
+    "app_name": "رهگشا",
+    "select_language": "انتخاب زبان",
+    "connecting": "در حال اتصال...",
+    "connected": "متصل شد",
+    "disconnected": "متصل نیست",
+    "loading": "در حال بارگذاری...",
+    "loading_storage": "در حال بارگذاری حافظه...",
+    "loading_cache": "در حال بارگذاری حافظه نهان..."
+}

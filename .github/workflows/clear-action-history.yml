@@ -1,0 +1,49 @@
+name: Delete Workflow Runs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  delete-workflows:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install Dependencies
+        run: |
+          pip install requests
+
+      - name: Delete Workflow Runs
+        run: |
+          python -c "
+          import requests
+
+          def delete_workflow_runs(access_token: str, repo: str) -> None:
+              print('Job is running...')
+              url = f'https://api.github.com/repos/{repo}/actions/runs?status=completed&per_page=100'
+              headers = {'Authorization': f'token {access_token}'}
+              
+              response = requests.get(url, headers=headers)
+              if response.status_code != 200:
+                  print(f'Failed to fetch workflow runs: {response.status_code} {response.text}')
+                  return
+
+              runs = response.json()
+              for run in runs.get('workflow_runs', []):
+                  if run['status'] != 'in_progress':
+                      run_id = run['id']
+                      delete_url = f'https://api.github.com/repos/{repo}/actions/runs/{run_id}'
+                      delete_response = requests.delete(delete_url, headers=headers)
+                      if delete_response.status_code == 204:
+                          print(f'Successfully deleted run ID: {run_id}')
+                      else:
+                          print(f'Failed to delete run ID: {run_id}, Status: {delete_response.status_code}')
+
+          delete_workflow_runs('${{ secrets.GH_TOKEN }}', '${{ github.repository }}')
+          "
