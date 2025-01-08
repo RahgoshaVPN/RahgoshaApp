@@ -33,24 +33,63 @@ module.exports = {
       "@semantic-release/release-notes-generator",
       {
         preset: "angular",
-        writerOpts: {
-          groupBy: "type",
-          commitGroupsSort: (a, b) => {
-            const order = ["feat", "fix", "hotfix", "refactor", "style", "docs", "test", "build", "chore", "ci"];
-            return order.indexOf(a.title) - order.indexOf(b.title);
-          },
-          groupTitleMap: {
-            feat: "🚀 Features",
-            fix: "🐛 Bug Fixes",
-            hotfix: "🔥 Hot Fixes",
-            refactor: "🚧 Refactors",
-            style: "✨ Styles",
-            docs: "📚 Documentation",
-            test: "✅ Tests",
-            build: "🏗️ Build",
-            chore: "🛠️ Maintenance",
-            ci: "🔄 CI/CD"
-          }
+        presetConfig: {
+          types: [
+            {
+              type: "feat",
+              section: "🚀 Features",
+              hidden: false
+            },
+            {
+              type: "fix",
+              section: "🐛 Bug Fixes",
+              hidden: false
+            },
+            {
+              type: "hotfix",
+              section: "🔥 Hot Fixes",
+              hidden: false
+            },
+            {
+              type: "refactor",
+              section: "🚧 Refactors",
+              hidden: false
+            },
+            {
+              type: "style",
+              section: "✨ Styles",
+              hidden: false
+            },
+            {
+              type: "docs",
+              section: "📚 Documentation",
+              hidden: false
+            },
+            {
+              type: "test",
+              section: "✅ Tests",
+              hidden: false
+            },
+            {
+              type: "perf",
+              section: "⚡ Performance",
+              hidden: false
+            },
+            {
+              type: "ci",
+              section: "🔄 CI/CD",
+              hidden: false
+            },
+            {
+              type: "build",
+              section: "🏗️ Build",
+              hidden: false
+            },
+            {
+              type: "chore",
+              hidden: true
+            }
+          ]          
         }
       }
     ],
