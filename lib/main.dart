@@ -13,8 +13,6 @@ import 'package:rahgosha/widgets/drawer.dart';
 import 'package:rahgosha/widgets/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-  
-   
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +22,7 @@ void main() async {
 
   cache.set("version", packageInfo.version);
 
-runApp(
+  runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => V2RayStatusNotifier()),
@@ -44,21 +42,20 @@ runApp(
   );
 }
 
-
-  Future<void> _initializeApp() async {
-    try {
-      setupLogging(Level.ALL);
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? userChoice = prefs.getString("userChoice");
-      logger.debug("keys: ${prefs.getKeys()}");
-      logger.debug("values: ${prefs.getKeys().map((key) => prefs.get(key))}");
-      logger.debug("User choice on main: $userChoice");
-      await reloadStorage(userChoice: userChoice ?? "Automatic");
-      await reloadCache();
-    } catch (err) {
-      logger.error("Failed to initialize app: $err");
-    }
+Future<void> _initializeApp() async {
+  try {
+    setupLogging(Level.ALL);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userChoice = prefs.getString("userChoice");
+    logger.debug("keys: \${prefs.getKeys()}");
+    logger.debug("values: \${prefs.getKeys().map((key) => prefs.get(key))}");
+    logger.debug("User choice on main: $userChoice");
+    await reloadStorage(userChoice: userChoice ?? "Automatic");
+    await reloadCache();
+  } catch (err) {
+    logger.error("Failed to initialize app: $err");
   }
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -89,16 +86,12 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   late int _selectedIndex;
-  final _pageController = PageController();
 
   @override
   void initState() {
     super.initState();
     _selectedIndex = 0;
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +108,6 @@ class _MainAppState extends State<MainApp> {
             (states) {
               if (states.contains(WidgetState.selected)) {
                 return TextStyle(
-                  // color: themeColors.primaryColor,
                   color: themeColors.secondaryTextColor,
                 );
               }
@@ -131,9 +123,6 @@ class _MainAppState extends State<MainApp> {
             NavigationDestination(
               icon: Icon(
                 Icons.home,
-                // color: _selectedIndex == 0
-                //     ? themeColors.primaryColor
-                //     : themeColors.secondaryTextColor,
                 color: themeColors.secondaryTextColor,
               ),
               label: "Home",
@@ -141,52 +130,28 @@ class _MainAppState extends State<MainApp> {
             NavigationDestination(
               icon: FaIcon(
                 FontAwesomeIcons.server,
-                // color: _selectedIndex == 1
-                //     ? themeColors.primaryColor
-                //     : themeColors.secondaryTextColor,
                 color: themeColors.secondaryTextColor,
               ),
               label: "Servers",
             ),
           ],
           selectedIndex: _selectedIndex,
-          onDestinationSelected: _onItemTapped,
+          onDestinationSelected: (index) => setState(() {
+            _selectedIndex = index;
+          }),
           shadowColor: themeColors.secondaryTextColor.withAlpha(125),
           elevation: 0,
           overlayColor: WidgetStateColor.transparent,
           indicatorColor: themeColors.secondaryTextColor.withAlpha(125),
-          // labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
           surfaceTintColor: themeColors.primaryColor,
         ),
       ),
-      body: PageView(
-        controller: _pageController,
+      body: IndexedStack(
+        index: _selectedIndex,
         children: pages,
-        onPageChanged: (int index) {
-          setState(() {
-            _selectedIndex = index;
-            _onItemTapped(index);
-          });
-        },
       ),
       drawer: DrawerWidget(),
     );
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      _pageController.animateToPage(
-        index,
-        duration: Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    });
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
 }
