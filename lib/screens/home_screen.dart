@@ -330,6 +330,20 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
 
 
   void updateServers() {
+    if (v2rayStatus.value.state == "CONNECTED") {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Cannot update servers while connected.",
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.redAccent,
+          duration: Duration(seconds: 2),
+        ),
+      );
+      return;
+    }
+
     setState(() {
       isUpdatingServers = true;
     });
@@ -348,12 +362,26 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text("Failed to update servers, Error: $e"),
-            duration: Duration(seconds: 2),
-            action: SnackBarAction(
-              label: "Retry", onPressed: updateServers
+            content: Row(
+              children: [
+                Icon(Icons.error, color: Colors.white),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    "Failed to update servers, Error: $e",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
             ),
-          )
+            backgroundColor: Colors.red,
+            duration: Duration(seconds: 3),
+            action: SnackBarAction(
+              label: "Retry",
+              textColor: Colors.yellow,
+              onPressed: updateServers,
+            ),
+          ),
         );
       }
     }().whenComplete(() {
@@ -361,15 +389,30 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
         isUpdatingServers = false;
       });
       if (isFailed) return;
+
+      
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text("Servers updated"),
+          content: Row(
+            children: [
+              Icon(Icons.check_circle, color: Colors.white),
+              SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  "Servers updated successfully",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
+          ),
+          backgroundColor: Colors.green,
           duration: Duration(seconds: 2),
-        )
+        ),
       );
     });
   }
+
 
 
   @override
@@ -441,19 +484,21 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                       themeColors.secondaryBackgroundColor.withAlpha(128) : themeColors.secondaryBackgroundColor,
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: IconButton(
-                      onPressed: 
-                      isUpdatingServers 
-                      || isLoading 
-                      || v2rayStatus.value.state == "CONNECTED" ? null : updateServers,
-                      icon: isUpdatingServers ? 
-                        LoadingAnimationWidget.threeArchedCircle(
-                          color: themeColors.textColor, 
-                          size: 19,
-                        )
-                        : Icon(
-                        Icons.refresh,
-                        color: themeColors.textColor,
+                  child: IgnorePointer(
+                    ignoring: isUpdatingServers || isLoading || v2rayStatus.value.state == "CONNECTED",
+                    child: IconButton(
+                      onPressed: isUpdatingServers || isLoading || v2rayStatus.value.state == "CONNECTED" 
+                          ? null 
+                          : updateServers,
+                      icon: isUpdatingServers 
+                          ? LoadingAnimationWidget.threeArchedCircle(
+                              color: themeColors.textColor,
+                              size: 19,
+                            )
+                          : Icon(
+                              Icons.refresh,
+                              color: themeColors.textColor,
+                            ),
                     ),
                   ),
                 ),
