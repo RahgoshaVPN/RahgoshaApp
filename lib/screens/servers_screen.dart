@@ -159,7 +159,8 @@ void dispose() {
                   name,
                   style: TextStyle(
                     color: themeColors.secondaryTextColor,
-                    fontSize: 16
+                    fontSize: 16,
+                    fontFamilyFallback: ["Emoji"],
                   ),
                 ),
               ),
