@@ -29,7 +29,7 @@ class DrawerWidget extends StatelessWidget {
                 DrawerHeader(
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage("assets/images/rahgosha.jpg"),
+                      image: AssetImage("assets/images/rahgosha-banner.jpg"),
                       fit: BoxFit.cover
                     ),
                     color: themeColors.backgroundColor,
