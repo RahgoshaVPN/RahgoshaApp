@@ -266,6 +266,7 @@ class _VpnCardState extends State<VpnCard> {
                       ipflag!,
                       style: TextStyle(
                         fontSize: 16,
+                        fontFamily: "Emoji"
                       ),
                     ),
                   ],

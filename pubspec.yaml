@@ -120,6 +120,10 @@ flutter:
         - asset: assets/fonts/Vazirmatn-Light.ttf
         - asset: assets/fonts/Vazirmatn-Medium.ttf
         - asset: assets/fonts/Vazirmatn-Regular.ttf
+
+    - family: Emoji
+      fonts:
+        - asset: assets/fonts/Emoji.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
