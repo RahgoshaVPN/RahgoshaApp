@@ -442,7 +442,10 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: IconButton(
-                      onPressed: isUpdatingServers || isLoading ? null : updateServers,
+                      onPressed: 
+                      isUpdatingServers 
+                      || isLoading 
+                      || v2rayStatus.value.state == "CONNECTED" ? null : updateServers,
                       icon: isUpdatingServers ? 
                         LoadingAnimationWidget.threeArchedCircle(
                           color: themeColors.textColor, 
