@@ -33,7 +33,6 @@ class ServersScreenState extends State<ServersScreen> with AutomaticKeepAliveCli
 
   @override
 void dispose() {
-  // حذف Listener برای جلوگیری از memory leak
   final v2rayStatusNotifier = context.read<V2RayStatusNotifier>();
   v2rayStatusNotifier.removeListener(_onV2RayStatusChanged);
   super.dispose();
@@ -91,9 +90,17 @@ void dispose() {
                 ),
               );
             } else {
+              String txt = "No servers found";
+              String state = context.read<V2RayStatusNotifier>()
+                  .v2rayStatus.value.state;
+              logger.debug(state);
+              if (
+                state == "DISCONNECTED") {
+                txt = "$txt\nConnect the vpn first";
+              }
               return Center(
                 child: Text(
-                  "No servers found.\nConnect the vpn first.",
+                  txt,
                   style: TextStyle(
                     color: themeColors.textColor,
                   ),
