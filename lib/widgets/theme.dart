@@ -19,6 +19,7 @@ final defaultTextStyle =
   TextStyle(
     fontFamily: "Vazirmatn", 
     color: themeColors.textColor,
+    fontFamilyFallback: ["Emoji"]
   );
 
 

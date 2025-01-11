@@ -204,7 +204,6 @@ class ServersScreenState extends State<ServersScreen> with AutomaticKeepAliveCli
                   style: TextStyle(
                     color: themeColors.secondaryTextColor,
                     fontSize: 16,
-                    fontFamilyFallback: ["Emoji"],
                   ),
                 ),
               ),

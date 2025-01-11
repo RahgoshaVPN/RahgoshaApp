@@ -66,7 +66,6 @@ class _VpnCardState extends State<VpnCard> {
                   widget.duration,
                   style: TextStyle(
                     color: Colors.grey[300],
-                    fontFamily: 'GM',
                     fontSize: 18,
                   ),
                 ),
@@ -117,7 +116,6 @@ class _VpnCardState extends State<VpnCard> {
                         widget.selectedServer,
                         style: TextStyle(
                           color: Colors.grey[300],
-                          fontFamily: 'GM',
                           fontSize: 16,
                         ),
                       ),
@@ -256,7 +254,6 @@ class _VpnCardState extends State<VpnCard> {
                     softWrap: false, 
                     style: TextStyle(
                       color: themeColors.textColor,
-                      fontFamily: 'GM',
                       fontSize: 13,
                     ),
                   ),
@@ -266,7 +263,6 @@ class _VpnCardState extends State<VpnCard> {
                       ipflag!,
                       style: TextStyle(
                         fontSize: 16,
-                        fontFamily: "Emoji"
                       ),
                     ),
                   ],
@@ -309,7 +305,6 @@ class _VpnCardState extends State<VpnCard> {
               "⬇️ $download",
               style: TextStyle(
                 color: Colors.grey[300],
-                fontFamily: 'GM',
                 fontSize: 13,
               ),
             ),
@@ -317,7 +312,6 @@ class _VpnCardState extends State<VpnCard> {
               "⬆️ $upload",
               style: TextStyle(
                 color: Colors.grey[300],
-                fontFamily: 'GM',
                 fontSize: 13,
               ),
             ),

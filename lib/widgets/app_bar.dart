@@ -21,7 +21,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         context.tr("app_name"),
         style: TextStyle(
           fontSize: 20,
-          fontFamily: "Vazirmatn",
           fontWeight: FontWeight.w500,
         ),
       ),
