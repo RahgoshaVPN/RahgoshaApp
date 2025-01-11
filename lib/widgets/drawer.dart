@@ -126,7 +126,5 @@ class DrawerWidget extends StatelessWidget {
         ],
       ),
     );
-
-
   }
 }

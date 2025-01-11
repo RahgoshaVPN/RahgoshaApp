@@ -50,8 +50,6 @@ Future<void> _initializeApp() async {
     setupLogging(Level.ALL);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userChoice = prefs.getString("userChoice");
-    logger.debug("keys: \${prefs.getKeys()}");
-    logger.debug("values: \${prefs.getKeys().map((key) => prefs.get(key))}");
     logger.debug("User choice on main: $userChoice");
     if (prefs.getBool("autoUpdateEnabled") ?? true) {
       await reloadStorage(userChoice: userChoice ?? "Automatic");
