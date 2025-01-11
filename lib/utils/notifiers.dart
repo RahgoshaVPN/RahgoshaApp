@@ -14,7 +14,7 @@ class V2RayStatusNotifier extends ChangeNotifier {
 class V2RayURLNotifier extends ChangeNotifier {
   dynamic url;
 
-  void updateURL(String newUrl) {
+  void updateURL(dynamic newUrl) {
     url = newUrl;
     notifyListeners();
   }
