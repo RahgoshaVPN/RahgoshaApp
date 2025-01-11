@@ -7,6 +7,7 @@ import 'package:rahgosha/utils/tools.dart';
 import 'package:rahgosha/widgets/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:rahgosha/utils/notifiers.dart';
 
 class ServersScreen extends StatefulWidget {
   const ServersScreen({super.key});
@@ -19,24 +20,40 @@ class ServersScreen extends StatefulWidget {
 class ServersScreenState extends State<ServersScreen> with AutomaticKeepAliveClientMixin {
   int _selectedIndex = 0;
   Future<Map<String, dynamic>?>? _futureData;
+  Map<String, dynamic>? _serversProfiles;
 
   @override
   void initState() {
     super.initState();
+    _initializeSelectedIndex();
     _futureData = _loadOptions();
-    
-     final v2rayStatusNotifier = context.read<V2RayStatusNotifier>();
+
+    final v2rayStatusNotifier = context.read<V2RayStatusNotifier>();
     v2rayStatusNotifier.addListener(_onV2RayStatusChanged);
   }
 
-  void _onV2RayStatusChanged() => _futureData = _loadOptions();
+  Future<void> _initializeSelectedIndex() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userChoice = getUserChoice();
+    
+    
+    int savedIndex = prefs.getInt("hc-$userChoice-index") ?? 0;
+    setState(() {
+      _selectedIndex = savedIndex;
+    });
+  }
+
+  void _onV2RayStatusChanged() => setState(() {
+    _futureData = _loadOptions();
+    _initializeSelectedIndex();
+  });
 
   @override
-void dispose() {
-  final v2rayStatusNotifier = context.read<V2RayStatusNotifier>();
-  v2rayStatusNotifier.removeListener(_onV2RayStatusChanged);
-  super.dispose();
-}
+  void dispose() {
+    final v2rayStatusNotifier = context.read<V2RayStatusNotifier>();
+    v2rayStatusNotifier.removeListener(_onV2RayStatusChanged);
+    super.dispose();
+  }
 
 
   Future<Map<String, dynamic>?> _loadOptions() async {
@@ -47,7 +64,19 @@ void dispose() {
       String userChoice = getUserChoice();
       dynamic decodedProfiles = jsonDecode(prefs.getString("hc-$userChoice")!);
 
-      return decodedProfiles;
+      final sortedEntries = (decodedProfiles as Map<String, dynamic>).entries.toList()
+        ..sort((a, b) => a.value.compareTo(b.value));
+
+      final rearrangedEntries = [
+        ...sortedEntries.where((entry) => entry.value != -1),
+        ...sortedEntries.where((entry) => entry.value == -1),
+      ];
+
+      final sortedProfiles = Map.fromEntries(rearrangedEntries);
+
+      _serversProfiles = sortedProfiles;
+
+      return sortedProfiles;
     }
     return null;
   }
@@ -67,24 +96,14 @@ void dispose() {
             } else if (snapshot.hasError) {
               return Center(child: Text("Error loading servers: ${snapshot.error}"));
             } else if (snapshot.hasData) {
-              final serversWithDelay = snapshot.data!;
-
-              final sortedServers = serversWithDelay.entries.toList()
-                ..sort((a, b) => a.value.compareTo(b.value));
-
-              final rearrangedServers = [
-                ...sortedServers.where((entry) => entry.value != -1),
-                ...sortedServers.where((entry) => entry.value == -1),
-              ];
-
               return SingleChildScrollView(
                 child: Column(
                   children: [
-                    for (int i = 0; i < rearrangedServers.length; i++) 
+                    for (int i = 0; i < _serversProfiles!.length; i++) 
                       _buildProfileCard(
-                        _decodeRemark(rearrangedServers[i].key),
+                        _decodeRemark(_serversProfiles!.keys.elementAt(i)),
                         i,
-                        rearrangedServers[i].value,
+                        _serversProfiles!.values.elementAt(i),
                       ),
                   ],
                 ),
@@ -118,6 +137,7 @@ void dispose() {
   String _decodeRemark(String jsonString) {
     try {
       final dynamic decoded = jsonDecode(jsonString);
+      // logger.debug(decoded["_remark"]);
       final String remark = decoded['_remark'] ?? 'Unknown';
 
       
@@ -153,8 +173,25 @@ void dispose() {
             ),
           Expanded(
             child: GestureDetector(
-              onTap: () {
-                setState(() {
+              onTap: () async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                String userChoice = getUserChoice();
+                prefs.setInt("hc-$userChoice-index", index);
+
+
+                final selectedKey = _serversProfiles?.keys.elementAt(index);
+                if (selectedKey != null) {
+                  // ignore: use_build_context_synchronously
+                  final urlNotifier = context.read<V2RayURLNotifier>();
+                  prefs.setString("hc-$userChoice-url", selectedKey);
+                  urlNotifier.updateURL(selectedKey.toString());
+                  logger.debug("Selected key: $selectedKey");
+                  logger.debug("Selected Profile : ${jsonDecode(selectedKey)["_remark"]}");
+                  
+                  // logger.debug("Remark: ${jsonDecode(selectedKey)["_remark"]}");
+                }
+
+                setState(()  {
                   logger.debug("Index: $index");
                   _selectedIndex = index;
                 });

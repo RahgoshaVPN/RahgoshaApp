@@ -28,6 +28,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => V2RayStatusNotifier()),
+        ChangeNotifierProvider(create: (_) => V2RayURLNotifier())
       ],
       child: EasyLocalization(
         supportedLocales: [
