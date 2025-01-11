@@ -179,9 +179,6 @@ Future<List<Widget>> loadOptions(
       // logger.debug(countryName);
       // logger.debug(selectedServer);
       // logger.debug(selectedServer == countryName);
-      if (selectedServer == countryName) {
-        logger.debug("Skibidi: $selectedServer");
-      }
     options.add(
       ListTile(
         title: Text(
