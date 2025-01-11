@@ -13,6 +13,8 @@ import 'package:rahgosha/widgets/drawer.dart';
 import 'package:rahgosha/widgets/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:rahgosha/utils/notifiers.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

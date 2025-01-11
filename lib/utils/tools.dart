@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_v2ray/model/v2ray_status.dart';
 import 'package:rahgosha/logger.dart';
 import 'package:rahgosha/utils/appcache.dart';
 import 'dart:io';
@@ -105,18 +104,11 @@ Future<bool> isHotConnectEnabled() async {
 void clearHotConnectCache() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   for (String key in prefs.getKeys()) {
+      logger.debug(key);
     if (key.startsWith("hc")) {
       logger.debug("removing key: $key");
       prefs.remove(key);
+      prefs.remove("$key-index");
     }
-  }
-}
-
-class V2RayStatusNotifier extends ChangeNotifier {
-  final ValueNotifier<V2RayStatus> v2rayStatus = ValueNotifier<V2RayStatus>(V2RayStatus());
-
-  void updateStatus(V2RayStatus status) {
-    v2rayStatus.value = status;
-    notifyListeners();
   }
 }
