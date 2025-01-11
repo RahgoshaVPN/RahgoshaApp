@@ -64,7 +64,10 @@ class _HomeScreenState extends State<HomeScreen>
   void initState() {
     super.initState();
 
-    flutterV2ray.initializeV2Ray();
+    flutterV2ray.initializeV2Ray(
+      notificationIconResourceType: "mipmap",
+      notificationIconResourceName: "ic_launcher_foreground",
+    );
 
     flutterV2ray.getCoreVersion().then((version) {
       logger.debug("Core version: $version");
