@@ -1,3 +1,23 @@
+## [1.0.0-alpha.2](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2025-01-11)
+
+### 🚀 Features
+
+* Add auto-update feature with customizable interval in settings ([a82b8eb](https://github.com/RahgoshaVPN/RahgoshaApp/commit/a82b8eb2d9c10d692214b10441ad0aa1fa827eda))
+
+### 🐛 Bug Fixes
+
+* Update APK download links in release template to include version number ([da17696](https://github.com/RahgoshaVPN/RahgoshaApp/commit/da17696b0b624013cace4faeffb1234a8003e220))
+* Update V2Ray initialization to include notification icon resources ([26cc4bf](https://github.com/RahgoshaVPN/RahgoshaApp/commit/26cc4bf1e2d6273033e70164494376b874ace4bf))
+* Update version display format in DrawerWidget ([c377cf4](https://github.com/RahgoshaVPN/RahgoshaApp/commit/c377cf4b37a7274ebbf9ecab26e4269c04c1ea51))
+
+### 🔥 Hot Fixes
+
+* Correct path resolution for APK distribution directory in rename script ([c3ba0fa](https://github.com/RahgoshaVPN/RahgoshaApp/commit/c3ba0fa719a49f5a54bf8abef21ac1dc310472ff))
+
+### 🚧 Refactors
+
+* Remove unused font families from various widgets and add fallback for Emoji ([6486988](https://github.com/RahgoshaVPN/RahgoshaApp/commit/648698833484dacf6a358c64e2e192ebb1f35af6))
+
 ## 1.0.0-alpha.1 (2025-01-11)
 
 ### 🚀 Features
