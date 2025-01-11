@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 const version = process.argv[2];
-const distDir = path.resolve(__dirname, "dist");
+const distDir = path.resolve(__dirname, "../dist");
 
 fs.readdirSync(distDir).forEach((file) => {
   if (file.endsWith(".apk")) {
