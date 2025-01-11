@@ -34,7 +34,7 @@ Future<Map<String, dynamic>> fetchServers() async {
 
 
 
-Future<bool> isPassedOneHour() async {
+Future<bool> hasTimePassed(double updateInterval) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   int savedTimeStamp = prefs.getInt("lastUpdate") ?? 1;
 
@@ -42,11 +42,16 @@ Future<bool> isPassedOneHour() async {
   DateTime currentTime = DateTime.now();
   Duration difference = currentTime.difference(savedTime);
 
-  return difference.inHours >= 1;
+  return difference.inHours >= updateInterval;
 }
 
+
 Future<void> reloadStorage({required  userChoice, bool forceReload = false}) async {
-  if (!forceReload && !(await isPassedOneHour())) {
+
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  double updateInterval = prefs.getDouble("updateInterval") ?? 1;
+
+  if (!forceReload && !(await hasTimePassed(updateInterval))) {
     return;
   }
 
@@ -55,7 +60,6 @@ Future<void> reloadStorage({required  userChoice, bool forceReload = false}) asy
   Map<String, dynamic> servers = await fetchServers();
   userChoice = servers["profilesByCountryCode"].containsKey(userChoice) ? userChoice : "Automatic";
 
-  SharedPreferences prefs = await SharedPreferences.getInstance();
   await prefs.setString("servers", jsonEncode(servers));
   logger.debug("userChoice on set: $userChoice");
   await prefs.setString("userChoice", userChoice);

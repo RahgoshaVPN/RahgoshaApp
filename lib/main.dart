@@ -53,8 +53,10 @@ Future<void> _initializeApp() async {
     logger.debug("keys: \${prefs.getKeys()}");
     logger.debug("values: \${prefs.getKeys().map((key) => prefs.get(key))}");
     logger.debug("User choice on main: $userChoice");
-    await reloadStorage(userChoice: userChoice ?? "Automatic");
-    await reloadCache();
+    if (prefs.getBool("autoUpdateEnabled") ?? true) {
+      await reloadStorage(userChoice: userChoice ?? "Automatic");
+      await reloadCache();
+    }
   } catch (err) {
     logger.error("Failed to initialize app: $err");
   }
