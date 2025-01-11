@@ -1,4 +1,4 @@
-package com.example.rahgosha
+package io.github.rahgoshavpn
 
 import io.flutter.embedding.android.FlutterActivity
 
