@@ -104,7 +104,10 @@ module.exports = {
     [
       "@semantic-release/exec",
       {
-        prepareCmd: "node .github/change-version.js \"${nextRelease.version}\""
+        prepareCmd: `
+          node .github/change-version.js "\${nextRelease.version}" &&
+          node .github/rename-apks.js "\${nextRelease.version}"
+        `
       },
     ],
     [

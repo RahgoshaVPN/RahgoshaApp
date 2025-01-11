@@ -22,16 +22,16 @@
     <tr>
       <td>Android</td>
       <td>
-        <a href="https://github.com/RahgoshaVPN/RahgoshaAPP/releases/download/<%= nextRelease.gitTag %>/Rahgosha-Android-universal.apk">
+        <a href="https://github.com/RahgoshaVPN/RahgoshaAPP/releases/download/<%= nextRelease.gitTag %>/Rahgosha-Android-universal-<%= nextRelease.gitTag %>.apk">
           <img src="https://img.shields.io/badge/APK-Universal-044d29.svg?logo=android" alt="Universal APK">
         </a><br>
-        <a href="https://github.com/RahgoshaVPN/RahgoshaAPP/releases/download/<%= nextRelease.gitTag %>/Rahgosha-Android-arm64.apk">
+        <a href="https://github.com/RahgoshaVPN/RahgoshaAPP/releases/download/<%= nextRelease.gitTag %>/Rahgosha-Android-arm64-<%= nextRelease.gitTag %>.apk">
           <img src="https://img.shields.io/badge/APK-ARMv8-168039.svg?logo=android" alt="ARMv8 APK">
         </a><br>
-        <a href="https://github.com/RahgoshaVPN/RahgoshaAPP/releases/download/<%= nextRelease.gitTag %>/Rahgosha-Android-arm7.apk">
+        <a href="https://github.com/RahgoshaVPN/RahgoshaAPP/releases/download/<%= nextRelease.gitTag %>/Rahgosha-Android-arm7-<%= nextRelease.gitTag %>.apk">
           <img src="https://img.shields.io/badge/APK-ARMv7-45bf55.svg?logo=android" alt="ARMv7 APK">
         </a><br>
-        <a href="https://github.com/RahgoshaVPN/RahgoshaAPP/releases/download/<%= nextRelease.gitTag %>/Rahgosha-Android-x86_64.apk">
+        <a href="https://github.com/RahgoshaVPN/RahgoshaAPP/releases/download/<%= nextRelease.gitTag %>/Rahgosha-Android-x86_64-<%= nextRelease.gitTag %>.apk">
           <img src="https://img.shields.io/badge/APK-x64-96ed89.svg?logo=android" alt="x64 APK">
         </a>
       </td>
