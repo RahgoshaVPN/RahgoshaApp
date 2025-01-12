@@ -14,8 +14,8 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  bool _autoUpdateEnabled = false;
-  bool _hotConnectEnabled = false;
+  bool _autoUpdateEnabled = true;
+  bool _hotConnectEnabled = true;
   double _updateInterval = 1.0;
   String? _selectedLanguage;
 
@@ -36,7 +36,7 @@ class _SettingsPageState extends State<SettingsPage> {
   void _loadSettings() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _autoUpdateEnabled = prefs.getBool('autoUpdateEnabled') ?? true;
-    _hotConnectEnabled = prefs.getBool('hotConnectEnabled') ?? false;
+    _hotConnectEnabled = prefs.getBool('hotConnectEnabled') ?? true;
     setState(() {});
   }
 

@@ -102,7 +102,7 @@ void safePop(context) {
 
 Future<bool> isHotConnectEnabled() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.getBool("hotConnectEnabled") ?? false;
+  return prefs.getBool("hotConnectEnabled") ?? true;
 }
 
 void clearHotConnectCache() async {
