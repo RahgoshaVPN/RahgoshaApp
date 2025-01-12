@@ -15,50 +15,72 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rahgosha/utils/notifiers.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
-  await _initializeApp();
-  final packageInfo = await PackageInfo.fromPlatform();
 
-  cache.set("version", packageInfo.version);
+  // Gather initialization tasks for parallel execution
+  await Future.wait([
+    EasyLocalization.ensureInitialized(),
+    _initializeApp(),
+    _getAppVersion(),
+  ]);
 
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => V2RayStatusNotifier()),
-        ChangeNotifierProvider(create: (_) => V2RayURLNotifier())
+        ChangeNotifierProvider(create: (_) => V2RayURLNotifier()),
       ],
       child: EasyLocalization(
-        supportedLocales: [
+        supportedLocales: const [
           Locale('en', 'US'),
           Locale('fa', 'IR'),
         ],
         path: 'assets/translations',
         saveLocale: true,
-        fallbackLocale: Locale('en', 'US'),
-        startLocale: Locale('en', 'US'),
-        child: MyApp(),
+        fallbackLocale: const Locale('en', 'US'),
+        startLocale: const Locale('en', 'US'),
+        child: const MyApp(),
       ),
     ),
   );
 }
 
+// Initialize app-specific settings
 Future<void> _initializeApp() async {
   try {
     setupLogging(Level.ALL);
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? userChoice = prefs.getString("userChoice");
+
+    // Fetch shared preferences asynchronously
+    final prefs = await SharedPreferences.getInstance();
+
+    // Read user choice from preferences
+    final userChoice = prefs.getString("userChoice");
     logger.debug("User choice on main: $userChoice");
+
+    // Perform auto-update tasks if enabled
     if (prefs.getBool("autoUpdateEnabled") ?? true) {
-      await reloadStorage(userChoice: userChoice ?? "Automatic");
-      await reloadCache();
+      await Future.wait([
+        reloadStorage(userChoice: userChoice ?? "Automatic"),
+        reloadCache(),
+      ]);
     }
   } catch (err) {
     logger.error("Failed to initialize app: $err");
   }
 }
+
+// Fetch the app version and cache it
+Future<void> _getAppVersion() async {
+  try {
+    final packageInfo = await PackageInfo.fromPlatform();
+    cache.set("version", packageInfo.version);
+  } catch (err) {
+    logger.error("Failed to fetch app version: $err");
+  }
+}
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
