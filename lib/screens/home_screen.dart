@@ -96,14 +96,20 @@ class _HomeScreenState extends State<HomeScreen>
     final urlNotifier = context.read<V2RayURLNotifier>();
     urlNotifier.addListener(_onV2RayURLChanged);
   }
-  void _onV2RayURLChanged() {
-    final urlNotifier = context.read<V2RayURLNotifier>();
-    String url = urlNotifier.url;
+void _onV2RayURLChanged() async {
+  final urlNotifier = context.read<V2RayURLNotifier>();
+  final url = urlNotifier.url;
 
-    disconnectServer();
-    connectServer(url);
+  await disconnectServer(); // Ensure the server disconnects first
+  await Future.delayed(Duration(milliseconds: 100)); // Non-blocking delay
+  connectServer(url); // Connect to the new server
+
+  // Trigger a state update if necessary
+  if (mounted) {
     setState(() {});
   }
+}
+
 
   @override
   void dispose() {
@@ -260,8 +266,8 @@ class _HomeScreenState extends State<HomeScreen>
     }
   }
 
-  void disconnectServer() {
-    flutterV2ray.stopV2Ray();
+  Future<void> disconnectServer() async {
+    await flutterV2ray.stopV2Ray();
   }
 
   void handleServerSelection(server) {
@@ -522,14 +528,7 @@ class _HomeScreenState extends State<HomeScreen>
                       ConnectionWidget(
                           onTap: () {
                             if (value.state == "DISCONNECTED") {
-                              if (isLoading) {
-                                isKilled = true;
-                              } else {
-                                setState(() {
-                                  isLoading = true;
-                                });
-                                checkServersAndConnect();
-                              }
+                              checkServersAndConnect();
                             } else {
                               disconnectServer();
                             }
