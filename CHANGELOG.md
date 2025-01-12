@@ -1,3 +1,19 @@
+## [1.0.0-alpha.3](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2025-01-12)
+
+### 🚀 Features
+
+* Enable auto-update and hot connect features by default in settings ([b12cb7c](https://github.com/RahgoshaVPN/RahgoshaApp/commit/b12cb7c0b338e76b851bb98ac007a41deebedfc5))
+
+### 🐛 Bug Fixes
+
+* Fix custom font family to app bar title text style ([2f38275](https://github.com/RahgoshaVPN/RahgoshaApp/commit/2f382758f41a1dcbfccbb405afa08c3eb3f0234f))
+
+### 🚧 Refactors
+
+* Improve server connection handling with async disconnect and state update ([0a665ea](https://github.com/RahgoshaVPN/RahgoshaApp/commit/0a665ea722e832e31295398093ff4e3ff739dc87))
+* Optimize app initialization by executing tasks in parallel and improve version fetching ([0758a12](https://github.com/RahgoshaVPN/RahgoshaApp/commit/0758a12b29334f578d79b38964c8203533c7aa63))
+* Remove debug logging statements and clean up drawer widget ([fabe00f](https://github.com/RahgoshaVPN/RahgoshaApp/commit/fabe00faaad24a588b300b65de06deb64a90acc4))
+
 ## [1.0.0-alpha.2](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2025-01-11)
 
 ### 🚀 Features
