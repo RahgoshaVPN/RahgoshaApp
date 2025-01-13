@@ -528,6 +528,11 @@ void _onV2RayURLChanged() async {
                       ConnectionWidget(
                           onTap: () {
                             if (value.state == "DISCONNECTED") {
+                              if (mounted) {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                              }
                               checkServersAndConnect();
                             } else {
                               disconnectServer();
