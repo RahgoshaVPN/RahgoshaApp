@@ -1,3 +1,9 @@
+## [1.0.0-alpha.4](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2025-01-13)
+
+### 🔥 Hot Fixes
+
+* Ensure loading state is managed correctly when connecting to servers ([306e44f](https://github.com/RahgoshaVPN/RahgoshaApp/commit/306e44fa0fc52a787e16e5ce446419fa620a492d))
+
 ## [1.0.0-alpha.3](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2025-01-12)
 
 ### 🚀 Features
