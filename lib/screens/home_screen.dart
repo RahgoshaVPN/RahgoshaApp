@@ -17,8 +17,6 @@ import 'package:rahgosha/utils/notifiers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-// import 'package:iconsax/iconsax.dart';
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -96,19 +94,19 @@ class _HomeScreenState extends State<HomeScreen>
     final urlNotifier = context.read<V2RayURLNotifier>();
     urlNotifier.addListener(_onV2RayURLChanged);
   }
-void _onV2RayURLChanged() async {
-  final urlNotifier = context.read<V2RayURLNotifier>();
-  final url = urlNotifier.url;
+  void _onV2RayURLChanged() async {
+    final urlNotifier = context.read<V2RayURLNotifier>();
+    final url = urlNotifier.url;
 
-  await disconnectServer(); // Ensure the server disconnects first
-  await Future.delayed(Duration(milliseconds: 100)); // Non-blocking delay
-  connectServer(url); // Connect to the new server
+    await disconnectServer(); // Ensure the server disconnects first
+    await Future.delayed(Duration(milliseconds: 100)); // Non-blocking delay
+    connectServer(url); // Connect to the new server
 
-  // Trigger a state update if necessary
-  if (mounted) {
-    setState(() {});
+    // Trigger a state update if necessary
+    if (mounted) {
+      setState(() {});
+    }
   }
-}
 
 
   @override
@@ -122,6 +120,12 @@ void _onV2RayURLChanged() async {
   void checkServersAndConnect() async {
     // getting configurations from the payload stored in the database
     // by using the choice that is cached
+
+    if (mounted) {
+      setState(() {
+        isLoading = true;
+      });
+    }
 
     bool hotConnectEnabled = await isHotConnectEnabled();
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -228,7 +232,11 @@ void _onV2RayURLChanged() async {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: const Text("Failed to connect to this server"),
           action: SnackBarAction(
-              label: "Retry", onPressed: checkServersAndConnect)));
+            label: "Retry", 
+            onPressed: checkServersAndConnect,
+            textColor: themeColors.primaryColor,
+          )
+        ));
       return;
     }
 
