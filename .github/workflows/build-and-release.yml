@@ -50,7 +50,10 @@ jobs:
       - name: Run semantic-release (Update Version)
         run: |
           export BUILD_NUMBER=${{github.run_number}}
-          npx semantic-release --dry-run --extends ./semantic-release-version.js
+          VERSION_SPACES=$(npx semantic-release --dry-run --extends ./semantic-release-version.js | grep -oP 'Published release \K.*? ')
+          VERSION="${VERSION_SPACES// /}" 
+          echo $VERSION
+          node .github/change-version.js $VERSION
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
