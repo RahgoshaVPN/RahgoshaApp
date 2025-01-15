@@ -1,3 +1,9 @@
+## [1.0.0-alpha.7](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.6...v1.0.0-alpha.7) (2025-01-15)
+
+### 🚧 Refactors
+
+* Update versioning script to modify pubspec.yaml instead of build.gradle ([96a92e8](https://github.com/RahgoshaVPN/RahgoshaApp/commit/96a92e8b15d5eb346ea4b1e3c45e64f31e35ac03))
+
 ## [1.0.0-alpha.6](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.5...v1.0.0-alpha.6) (2025-01-15)
 
 ### 🚧 Refactors
