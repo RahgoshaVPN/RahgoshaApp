@@ -1,3 +1,9 @@
+## [1.0.0-alpha.5](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.4...v1.0.0-alpha.5) (2025-01-15)
+
+### 🚧 Refactors
+
+* Clean up HomeScreen state management and improve URL change handling ([1cc44bb](https://github.com/RahgoshaVPN/RahgoshaApp/commit/1cc44bb941e471b2811a9388cbd0092df5cad154))
+
 ## [1.0.0-alpha.4](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2025-01-13)
 
 ### 🔥 Hot Fixes
