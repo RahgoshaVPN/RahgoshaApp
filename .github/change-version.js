@@ -1,38 +1,26 @@
 const fs = require('fs');
 const path = require('path');
 
-const buildGradlePath = path.resolve('android/app/build.gradle');
-const versionName = process.argv[2];
+const pubspecPath = path.resolve('pubspec.yaml');
+const version = process.argv[2];
 
-if (!versionName) {
+if (!version) {
   console.error('Error: Version argument is required.');
   process.exit(1);
 }
 
-const versionCode = process.env.BUILD_NUMBER || '1'; // Default to 1 if BUILD_NUMBER is not provided
-const versionNameRegex = /versionName\s+"[\d.]+"/;
-const versionCodeRegex = /versionCode\s+\d+/;
+const buildNumber = process.env.BUILD_NUMBER || '0';
+const versionRegex = /^version:\s\d+\.\d+\.\d+.*$/m;
 
 try {
-  const buildGradleContent = fs.readFileSync(buildGradlePath, 'utf8');
-
-  // Replace versionName
-  let updatedContent = buildGradleContent.replace(
-    versionNameRegex,
-    `versionName "${versionName}"`
+  const pubspecContent = fs.readFileSync(pubspecPath, 'utf8');
+  const updatedContent = pubspecContent.replace(
+    versionRegex,
+    `version: ${version}+${buildNumber}`
   );
-
-  // Replace versionCode
-  updatedContent = updatedContent.replace(
-    versionCodeRegex,
-    `versionCode ${versionCode}`
-  );
-
-  fs.writeFileSync(buildGradlePath, updatedContent, 'utf8');
-  console.log(
-    `Updated build.gradle: versionName="${versionName}" and versionCode=${versionCode}`
-  );
+  fs.writeFileSync(pubspecPath, updatedContent, 'utf8');
+  console.log(`Updated pubspec.yaml version to ${version}+${buildNumber}`);
 } catch (error) {
-  console.error(`Error updating build.gradle: ${error.message}`);
+  console.error(`Error updating pubspec.yaml: ${error.message}`);
   process.exit(1);
 }
