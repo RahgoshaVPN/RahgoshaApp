@@ -1,3 +1,9 @@
+## [1.0.0-alpha.6](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.5...v1.0.0-alpha.6) (2025-01-15)
+
+### 🚧 Refactors
+
+* Update build workflow to extract and pass version from semantic-release to change-version script ([07e612f](https://github.com/RahgoshaVPN/RahgoshaApp/commit/07e612ffb5777f15db7e82c43b4773793a4f6166))
+
 ## [1.0.0-alpha.5](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.4...v1.0.0-alpha.5) (2025-01-15)
 
 ### 🚧 Refactors
