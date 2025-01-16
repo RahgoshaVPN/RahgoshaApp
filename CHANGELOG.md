@@ -1,3 +1,12 @@
+## [1.0.0-alpha.10](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.9...v1.0.0-alpha.10) (2025-01-16)
+
+### 🐛 Bug Fixes
+
+* Fix dynamic signing configuration using keystore properties ([8e9b28d](https://github.com/RahgoshaVPN/RahgoshaApp/commit/8e9b28d5a0adf4a6bc37e8da7c4f3210e1156936))
+* Optimize APK signing process with zipalign and apksigner ([d11c88d](https://github.com/RahgoshaVPN/RahgoshaApp/commit/d11c88df93510f9e02a5c58ce6bdf210ae885ccd))
+* Remove zipalign optimization step from build workflow ([a5a73b3](https://github.com/RahgoshaVPN/RahgoshaApp/commit/a5a73b33a5005ddd0814e156f5980f103faa8e8a))
+* Update build workflow to decode keystore and key properties ([be1b485](https://github.com/RahgoshaVPN/RahgoshaApp/commit/be1b485554807942b296b293d7769a9e8a2d6320))
+
 ## [1.0.0-alpha.9](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.8...v1.0.0-alpha.9) (2025-01-16)
 
 ### 🐛 Bug Fixes
