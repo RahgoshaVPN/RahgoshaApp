@@ -232,9 +232,9 @@ class ServersScreenState extends State<ServersScreen> with AutomaticKeepAliveCli
 
     
     Color delayColor;
-    if (delay < 1000) {
+    if (delay < 2000) {
       delayColor = Colors.green;
-    } else if (delay < 2000) {
+    } else if (delay < 3000) {
       delayColor = Colors.yellow;
     } else {
       delayColor = Colors.red;
