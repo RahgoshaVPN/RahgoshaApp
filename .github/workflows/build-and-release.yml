@@ -82,7 +82,6 @@ jobs:
       - name: Sign The APK
         run: |
           export APK_PATH="dist/${{ matrix.config.apk-name }}"
-          zip -d $APK_PATH 'META-INF/*'
           jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 \
           -keystore android/app/keystore.jks \
           -tsa http://timestamp.digicert.com \
