@@ -82,8 +82,9 @@ jobs:
       - name: Upload APK artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: apk-files
+          name: apk-files-${{ matrix.config.apk-name }}
           path: dist/
+        
 
   release:
     needs: build-apks
@@ -105,7 +106,6 @@ jobs:
       - name: Download APK Artifacts
         uses: actions/download-artifact@v4
         with:
-          name: apk-files
           path: dist/
 
       - name: Run semantic-release
