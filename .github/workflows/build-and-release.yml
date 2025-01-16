@@ -78,12 +78,6 @@ jobs:
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/keystore.jks
 
-      - name: Optimize APK with zipalign
-        run: |
-          export APK_UNSIGNED_PATH="dist/${{ matrix.config.apk-name }}"
-          export APK_ALIGNED_PATH="dist/${{ matrix.config.apk-name }}.aligned"
-          zipalign -f -v 4 $APK_UNSIGNED_PATH $APK_ALIGNED_PATH
-          mv $APK_ALIGNED_PATH $APK_UNSIGNED_PATH
         
       - name: Sign The APK
         run: |
