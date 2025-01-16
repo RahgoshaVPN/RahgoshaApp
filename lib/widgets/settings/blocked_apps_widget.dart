@@ -117,6 +117,9 @@ class _BlockedAppsWidgetsState extends State<BlockedAppsWidgets>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: themeColors.secondaryTextColor
+        ),
         title: AnimatedOpacity(
           opacity: isSearchReady ? 1.0 : 0.0,
           duration: Duration(milliseconds: 500),
@@ -127,6 +130,7 @@ class _BlockedAppsWidgetsState extends State<BlockedAppsWidgets>
               hintStyle: TextStyle(
                   color: isSearchReady ? Colors.white : Colors.white70),
               border: InputBorder.none,
+              
             ),
             style: TextStyle(color: Colors.white),
             enabled: isSearchReady,
@@ -168,13 +172,21 @@ class _BlockedAppsWidgetsState extends State<BlockedAppsWidgets>
                   leading: app.icon != null && app.icon!.isNotEmpty
                       ? Image.memory(app.icon!)
                       : Icon(Icons.android),
-                  title: Text(app.name),
+                  title: Text(
+                    app.name,
+                    style: TextStyle(
+                      color: themeColors.secondaryTextColor
+                    ),
+                  ),
                   subtitle: Text(app.packageName),
                   trailing: Checkbox(
                     value: isBlocked,
                     onChanged: (bool? value) {
                       _toggleBlockedApp(app.packageName);
                     },
+                    activeColor: themeColors.primaryColor,
+                    checkColor: Colors.black,
+                    
                   ),
                   onTap: () {
                     _toggleBlockedApp(app.packageName);

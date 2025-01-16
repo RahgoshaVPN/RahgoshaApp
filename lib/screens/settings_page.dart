@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:rahgosha/widgets/settings/blocked_apps_widget.dart';
 import 'package:rahgosha/widgets/settings/languages_widget.dart';
 import 'package:rahgosha/common/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -86,7 +87,12 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
             leading: Icon(Icons.block),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context, 
+                MaterialPageRoute(builder: (_) => BlockedAppsWidgets())
+              );
+            },
           ),
           ListTile(
             title: Text(
