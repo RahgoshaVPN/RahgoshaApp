@@ -108,6 +108,11 @@ jobs:
         with:
           path: dist/
 
+      - name: Move APK files to root of dist
+        run: |
+          find dist -mindepth 2 -type f -exec mv -t dist {} +
+          find dist -mindepth 1 -type d -exec rm -r {} +
+
       - name: Run semantic-release
         run: | 
           export BUILD_NUMBER=${{github.run_number}}
