@@ -120,6 +120,7 @@ class _HomeScreenState extends State<HomeScreen>
   void checkServersAndConnect() async {
     // getting configurations from the payload stored in the database
     // by using the choice that is cached
+    if (!(await flutterV2ray.requestPermission())) return;
 
     if (mounted) {
       setState(() {
