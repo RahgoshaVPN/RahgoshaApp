@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rahgosha/logger.dart';
+import 'package:rahgosha/common/logger.dart';
 import 'package:rahgosha/utils/tools.dart';
-import 'package:rahgosha/widgets/theme.dart';
+import 'package:rahgosha/common/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:rahgosha/utils/notifiers.dart';

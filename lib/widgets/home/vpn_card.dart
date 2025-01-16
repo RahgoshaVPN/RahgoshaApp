@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
-import 'package:rahgosha/logger.dart';
-import 'package:rahgosha/widgets/theme.dart';
+import 'package:rahgosha/common/logger.dart';
+import 'package:rahgosha/common/theme.dart';
 
 class VpnCard extends StatefulWidget {
   final int downloadSpeed;

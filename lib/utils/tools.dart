@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:rahgosha/logger.dart';
+import 'package:rahgosha/common/logger.dart';
 import 'package:rahgosha/utils/appcache.dart';
 import 'dart:io';
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rahgosha/screens/settings_page.dart';
 import 'package:rahgosha/utils/appcache.dart';
-import 'package:rahgosha/widgets/theme.dart';
+import 'package:rahgosha/common/theme.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});

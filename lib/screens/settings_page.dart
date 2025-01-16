@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:rahgosha/widgets/languages.dart';
-import 'package:rahgosha/widgets/theme.dart';
+import 'package:rahgosha/widgets/settings/languages_widget.dart';
+import 'package:rahgosha/common/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 

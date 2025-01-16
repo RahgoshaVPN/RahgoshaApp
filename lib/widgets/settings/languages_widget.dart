@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rahgosha/widgets/theme.dart';
+import 'package:rahgosha/common/theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

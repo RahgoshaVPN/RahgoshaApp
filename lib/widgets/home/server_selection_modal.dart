@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:country_flags/country_flags.dart';
-import 'package:rahgosha/logger.dart';
+import 'package:rahgosha/common/logger.dart';
 import 'package:rahgosha/utils/appcache.dart';
 import 'package:rahgosha/utils/locations.dart';
 import 'package:rahgosha/utils/tools.dart';
-import 'package:rahgosha/widgets/theme.dart';
+import 'package:rahgosha/common/theme.dart';
 
 class ServerSelectionModal extends StatelessWidget {
   final String selectedServer;

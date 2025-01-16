@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:rahgosha/widgets/theme.dart';
+import 'package:rahgosha/common/theme.dart';
 
 class ConnectionWidget extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
