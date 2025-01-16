@@ -173,7 +173,7 @@ class ServersScreenState extends State<ServersScreen> with AutomaticKeepAliveCli
             ),
           Expanded(
             child: GestureDetector(
-              onTap: () async {
+              onTap: _selectedIndex == index ? null : () async {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 String userChoice = getUserChoice();
                 prefs.setInt("hc-$userChoice-index", index);
