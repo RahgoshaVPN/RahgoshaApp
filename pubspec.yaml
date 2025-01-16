@@ -47,6 +47,7 @@ dependencies:
   flutter_native_splash: ^2.3.10
   package_info_plus: ^8.1.2
   provider: ^6.1.2
+  installed_apps: ^1.5.2
   # dio: ^5.7.0
 
 dev_dependencies:
