@@ -61,15 +61,7 @@ jobs:
       - name: Create dist directory
         run: mkdir -p dist
 
-      - name: Decode Keystore
-        run: |
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/keystore.jks
 
-      - name: Create key.properties
-        run: |
-          echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" > android/key.properties
-          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
-          echo "storeFile=keystore.jks" >> android/key.properties
 
       - name: Build APK
         run: |
@@ -79,6 +71,23 @@ jobs:
             flutter build apk --target-platform ${{ matrix.config.target-platform }} --release
           fi
           mv build/app/outputs/flutter-apk/app-release.apk dist/${{ matrix.config.apk-name }}
+
+
+      - name: Decode Keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/keystore.jks
+
+        
+      - name: Sign The APK
+        run: |
+          export APK_PATH="dist/${{ matrix.config.apk-name }}"
+          zip -d $APK_PATH 'META-INF/*'
+          jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 \
+          -keystore android/keystore.jks \
+          -tsa http://timestamp.digicert.com \
+          -storepass ${{ secrets.KEYSTORE_PASSWORD }} \
+          $APK_PATH ${{ secrets.KEY_ALIAS }}
+
       
 
       - name: Upload APK artifacts
