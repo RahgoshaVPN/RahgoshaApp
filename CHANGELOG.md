@@ -1,3 +1,20 @@
+## [1.0.0-alpha.8](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.7...v1.0.0-alpha.8) (2025-01-16)
+
+### 🐛 Bug Fixes
+
+* Fix keystore path in build and release workflow ([75ae0d0](https://github.com/RahgoshaVPN/RahgoshaApp/commit/75ae0d0ea2e589711c1776311c370da681c73150))
+
+### 🚧 Refactors
+
+* Add permission check before connecting to servers in home screen ([1aa3ded](https://github.com/RahgoshaVPN/RahgoshaApp/commit/1aa3ded092b756e6aedc6a91436da1b5a1381239))
+* Adjust delay thresholds for color coding in servers screen ([f47da0a](https://github.com/RahgoshaVPN/RahgoshaApp/commit/f47da0a491099145b5f3ec797d94e0d5cc8119ef))
+* Enhance build workflow to include APK signing process and reorganize keystore handling ([3983116](https://github.com/RahgoshaVPN/RahgoshaApp/commit/39831161383bf163da719761a53a5fb97d145592))
+* Prevent tap action on selected index in servers screen ([6dfb008](https://github.com/RahgoshaVPN/RahgoshaApp/commit/6dfb008f4ff23fd2dec8df863b9636d32584f1b1))
+
+### ✨ Styles
+
+* Set system UI overlay style for improved navigation bar appearance ([24b4f37](https://github.com/RahgoshaVPN/RahgoshaApp/commit/24b4f37599a469b31d9bfa599b6308f225332092))
+
 ## [1.0.0-alpha.7](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.6...v1.0.0-alpha.7) (2025-01-15)
 
 ### 🚧 Refactors
