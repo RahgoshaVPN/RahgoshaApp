@@ -1,3 +1,9 @@
+## [1.0.0-alpha.9](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.8...v1.0.0-alpha.9) (2025-01-16)
+
+### 🐛 Bug Fixes
+
+* Remove META-INF files from APK during signing process ([c3e576d](https://github.com/RahgoshaVPN/RahgoshaApp/commit/c3e576d735571a9ce85ab387a0a33a30a06d4514))
+
 ## [1.0.0-alpha.8](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.7...v1.0.0-alpha.8) (2025-01-16)
 
 ### 🐛 Bug Fixes
