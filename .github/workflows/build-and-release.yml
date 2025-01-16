@@ -64,6 +64,18 @@ jobs:
 
 
 
+        
+        
+      - name: Decode Keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/keystore.jks
+
+      - name: Create keystore & key.properties
+        run: |
+          echo ${{ secrets.KEYSTORE_BASE64 }} | base64 --decode > android/app/keystore.jks
+          echo ${{ secrets.KEY_PROPERTIES_BASE64 }} | base64 --decode > android/key.properties
+        
+        
       - name: Build APK
         run: |
           if [ "${{ matrix.config.target-platform }}" == "universal" ]; then
@@ -72,24 +84,7 @@ jobs:
             flutter build apk --target-platform ${{ matrix.config.target-platform }} --release
           fi
           mv build/app/outputs/flutter-apk/app-release.apk dist/${{ matrix.config.apk-name }}
-
-
-      - name: Decode Keystore
-        run: |
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/keystore.jks
-
         
-      - name: Sign The APK
-        run: |
-          export APK_PATH="dist/${{ matrix.config.apk-name }}"
-          apksigner sign --verbose \
-            --ks android/app/keystore.jks \
-            --ks-pass pass:${{ secrets.KEYSTORE_PASSWORD }} \
-            --ks-key-alias ${{ secrets.KEY_ALIAS }} \
-            $APK_PATH
-
-
-      
 
       - name: Upload APK artifacts
         uses: actions/upload-artifact@v3
