@@ -48,6 +48,7 @@ dependencies:
   package_info_plus: ^8.1.2
   provider: ^6.1.2
   installed_apps: ^1.5.2
+  url_launcher: ^6.3.1
   # dio: ^5.7.0
 
 dev_dependencies:

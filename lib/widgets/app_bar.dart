@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rahgosha/screens/settings_page.dart';
 import 'package:rahgosha/common/theme.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key});
@@ -54,8 +55,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             color: themeColors.secondaryTextColor,
             size: 20,
           ),
-          onPressed: () {
-            // TODO: Link to GitHub
+          onPressed: () async {
+            await launchUrl(
+              Uri.parse('https://github.com/RahgoshaVPN/RahgoshaApp'),
+              mode: LaunchMode.externalApplication
+            );
           },
         highlightColor: themeColors.secondaryTextColor.withAlpha(50),
         ),
