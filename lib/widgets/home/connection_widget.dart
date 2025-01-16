@@ -73,8 +73,9 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
         SizedBox(height: 16),
         Text(
           context.tr(
-          (widget.isLoading ? "CONNECTING"
-          : widget.status).toLowerCase()
+            widget.isLoading 
+              ? "general.state.connecting" 
+              : "general.state.${widget.status.toLowerCase()}"
           ),
           style: TextStyle(
             fontSize: 16, 

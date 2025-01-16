@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rahgosha/widgets/settings/blocked_apps_widget.dart';
@@ -66,7 +67,7 @@ class _SettingsPageState extends State<SettingsPage> {
           color: themeColors.secondaryTextColor,
         ),
         title: Text(
-          'Settings',
+          "screens.settings.common.settings".tr(),
           style: TextStyle(
             color: themeColors.secondaryTextColor,
           ),
@@ -77,11 +78,11 @@ class _SettingsPageState extends State<SettingsPage> {
         children: [
           ListTile(
             title: Text(
-              "Blocked Apps",
+              "screens.settings.blocked_apps.title".tr(),
               style: defaultTextStyle,
             ),
             subtitle: Text(
-              "Manage blocked apps",
+              "screens.settings.blocked_apps.subtitle".tr(),
               style: TextStyle(
                 color: themeColors.secondaryTextColor,
               ),
@@ -96,11 +97,11 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           ListTile(
             title: Text(
-              "Language",
+              "screens.settings.language.title".tr(),
               style: defaultTextStyle,
             ),
             subtitle: Text(
-              "Change the app language",
+              "screens.settings.language.subtitle".tr(),
               style: TextStyle(
                 color: themeColors.secondaryTextColor,
               ),
@@ -126,11 +127,11 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           SwitchListTile(
             title: Text(
-              "Enable Hot Connect",
+              "screens.settings.enable_hot_connect.title".tr(),
               style: defaultTextStyle,
             ),
             subtitle: Text(
-              "Caches servers with the lowest delays so you can connect faster",
+               "screens.settings.enable_hot_connect.subtitle".tr(),
               style: TextStyle(
                 color: themeColors.secondaryTextColor,
               ),
@@ -153,12 +154,12 @@ class _SettingsPageState extends State<SettingsPage> {
             children: [
                   SwitchListTile(
                     title: Text(
-                      "Enable Auto Update",
+                       "screens.settings.enable_auto_update.title".tr(),
                       style: defaultTextStyle,
                     ),
                     secondary: Icon(FontAwesomeIcons.rotateRight),
                     subtitle: Text(
-                      "Update servers when you open the app",
+                      "screens.settings.enable_auto_update.subtitle".tr(),
                       style: TextStyle(
                         color: themeColors.secondaryTextColor,
                       ),
@@ -185,7 +186,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         children: [
                           const SizedBox(width: 20,),
                           Text(
-                            "Select update interval (in hours):",
+                            "screens.settings.update_interval.description".tr(),
                             style: TextStyle(
                               color: themeColors.secondaryTextColor,
                               fontSize: 14,
@@ -197,6 +198,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         data: SliderThemeData(
                           valueIndicatorTextStyle: TextStyle(
                             color: Colors.black87,
+                            fontFamily: "Vazirmatn"
                           )
                         ), 
                           child: Slider(
@@ -205,7 +207,9 @@ class _SettingsPageState extends State<SettingsPage> {
                             max: 24,
                             divisions: 23,
                             activeColor: themeColors.primaryColor,
-                            label: "${_updateInterval.toInt()} hours",
+                            label: "screens.settings.update_interval.label".tr(
+                              args: [_updateInterval.toInt().toString()]
+                            ),
                             onChanged: (value) {
                               setState(() {
                                 _updateInterval = value;

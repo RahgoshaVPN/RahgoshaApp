@@ -1,8 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:country_flags/country_flags.dart';
 import 'package:rahgosha/common/logger.dart';
 import 'package:rahgosha/utils/appcache.dart';
-import 'package:rahgosha/utils/locations.dart';
 import 'package:rahgosha/utils/tools.dart';
 import 'package:rahgosha/common/theme.dart';
 
@@ -44,7 +44,7 @@ class ServerSelectionModal extends StatelessWidget {
                 ),
                 SizedBox(width: 8),
                 Text(
-                  "Select a server",
+                  "screens.home.server_selection.title".tr(),
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -60,7 +60,7 @@ class ServerSelectionModal extends StatelessWidget {
                 color: Colors.yellow,
               ),
               title: Text(
-                'Automatic',
+                'general.automatic'.tr(),
                 style: TextStyle(
                   color: themeColors.textColor,
                 ),
@@ -77,13 +77,15 @@ class ServerSelectionModal extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return CircularProgressIndicator();
                 } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
+                  return Text("errors.error".tr(
+                    args: [snapshot.error.toString()]
+                  ));
                 } else if (snapshot.hasData) {
                   return Column(
                     children: snapshot.data!,
                   );
                 } else {
-                  return Text('No data available');
+                  return Text("screens.home.server_selection.no_data".tr());
                 }
               },
             ),
@@ -109,7 +111,7 @@ Future<List<Widget>> loadOptions(
       Row(
         children: [
           Text(
-            "Recommended Servers",
+            "screens.home.server_selection.recommended".tr(),
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -130,7 +132,7 @@ Future<List<Widget>> loadOptions(
     for (String countryCode in recommendedServers) {
       if (!countryCodes.contains(countryCode)) continue;
 
-      final String countryName = CountryService.getCountryName(countryCode);
+      final String countryName = "locations.$countryCode".tr();
       options.add(
         ListTile(
           title: Text(
@@ -156,7 +158,7 @@ Future<List<Widget>> loadOptions(
     Row(
       children: [
         Text(
-          "All Servers",
+          "screens.home.server_selection.all_servers".tr(),
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -175,7 +177,7 @@ Future<List<Widget>> loadOptions(
   );
 
   for (String countryCode in countryCodes) {
-    final String countryName = CountryService.getCountryName(countryCode);
+    final String countryName = "locations.$countryCode".tr();
       // logger.debug(countryName);
       // logger.debug(selectedServer);
       // logger.debug(selectedServer == countryName);

@@ -65,7 +65,7 @@ class _LanguageWidgetState extends State<LanguageWidget> {
           color: themeColors.secondaryTextColor,
         ),
         title: Text(
-          context.tr('select_language'),
+          "screens.settings.language.select_language".tr(),
           style: TextStyle(
             color: themeColors.secondaryTextColor,
           ),

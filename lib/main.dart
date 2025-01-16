@@ -156,14 +156,14 @@ class _MainAppState extends State<MainApp> {
                 Icons.home,
                 color: themeColors.secondaryTextColor,
               ),
-              label: "Home",
+              label: "screens.root.home".tr(),
             ),
             NavigationDestination(
               icon: FaIcon(
                 FontAwesomeIcons.server,
                 color: themeColors.secondaryTextColor,
               ),
-              label: "Servers",
+              label: "screens.root.servers".tr(),
             ),
           ],
           selectedIndex: _selectedIndex,

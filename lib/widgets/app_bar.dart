@@ -18,7 +18,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       scrolledUnderElevation: 4.0,
       elevation: 0,
       title: Text(
-        context.tr("app_name"),
+        "general.app_name".tr(),
         style: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w500,

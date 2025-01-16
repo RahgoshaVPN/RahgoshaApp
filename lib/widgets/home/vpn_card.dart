@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:country_flags/country_flags.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:rahgosha/common/logger.dart';
 import 'package:rahgosha/common/theme.dart';
@@ -136,13 +137,13 @@ class _VpnCardState extends State<VpnCard> {
                       icon: Icons.data_usage_rounded,
                       download: formatBytes(widget.downloadSpeed),
                       upload: formatBytes(widget.uploadSpeed),
-                      status: 'Real-time Usage',
+                      status: "screens.home.vpn_card.real_time_usage".tr(),
                     ),
                     _buildStatColumn(
                       icon: Icons.wifi_rounded,
                       download: formatSpeedBytes(widget.download),
                       upload: formatSpeedBytes(widget.upload),
-                      status: 'Total Usage',
+                      status: "screens.home.vpn_card.total_usage".tr(),
 
                     ),
                   ],
@@ -202,7 +203,7 @@ class _VpnCardState extends State<VpnCard> {
               setState(() {
                 if (ipInfo['countryCode'] == 'Error') {
                   ipflag = null;
-                  ipText = 'Unknown';
+                  ipText = "general.unknown".tr();
                   isLoading = false;
                   return;
                 }
@@ -219,7 +220,7 @@ class _VpnCardState extends State<VpnCard> {
                 Future.delayed(Duration(seconds: 4), () {
                   try {
                     setState(() {
-                      ipText = 'Show IP Address';
+                      ipText = "screens.home.vpn_card.show_ip_address".tr();
                       ipflag = null;
                     });
                   } catch (e) {
@@ -248,7 +249,7 @@ class _VpnCardState extends State<VpnCard> {
                   )
                 else ...[
                   Text(
-                    ipText ?? 'Show IP Address',
+                    ipText ?? "screens.home.vpn_card.show_ip_address".tr(),
                     overflow: TextOverflow.ellipsis, 
                     maxLines: 1, 
                     softWrap: false, 

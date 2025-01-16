@@ -1,13 +1,14 @@
 import 'dart:convert';
 
 import 'package:country_flags/country_flags.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_v2ray/flutter_v2ray.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:rahgosha/common/logger.dart';
 import 'package:rahgosha/utils/appcache.dart';
-import 'package:rahgosha/utils/locations.dart';
+import 'package:rahgosha/utils/custom_snackbar.dart';
 import 'package:rahgosha/utils/tools.dart';
 import 'package:rahgosha/widgets/home/connection_widget.dart';
 import 'package:rahgosha/widgets/home/server_selection_modal.dart';
@@ -83,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen>
       );
       selectedServer = "Automatic";
     } else {
-      selectedServer = CountryService.getCountryName(userChoice);
+      selectedServer = "locations.$userChoice".tr();
       selectedServerLogo = CountryFlag.fromCountryCode(
         userChoice,
         shape: Circle(),
@@ -144,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen>
       "FI",
     ];
 
-    String userChoice = cache.get("userChoice");
+    String userChoice = getUserChoice();
     logger
         .debug(hotConnectEnabled && prefs.getString("hc-$userChoice") != null);
     if (hotConnectEnabled && prefs.getString("hc-$userChoice") != null) {
@@ -237,15 +238,13 @@ class _HomeScreenState extends State<HomeScreen>
       } else {
         isLoading = false;
       }
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: const Text("Failed to connect to this server"),
-          action: SnackBarAction(
-            label: "Retry", 
-            onPressed: checkServersAndConnect,
-            textColor: themeColors.primaryColor,
-          )
-        ));
+      CustomSnackBar.show(
+        // ignore: use_build_context_synchronously
+        context, 
+        "errors.failed_to_connect".tr(),
+        SnackBarType.error,
+        onRetry: checkServersAndConnect
+      );
       return;
     }
 
@@ -254,24 +253,32 @@ class _HomeScreenState extends State<HomeScreen>
 
   void connectServer(String url) async {
     if (await flutterV2ray.requestPermission()) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      List<String> blockedApps = prefs.getStringList('blockedApps') ?? [];
+
+      String appName = "general.app_name".tr();
+      String translatedServer = "locations.$selectedServer".tr();
       flutterV2ray.startV2Ray(
-          remark: "Rahgosha: $selectedServer",
+          remark: "$appName: $translatedServer",
           // The use of parser.getFullConfiguration() is not mandatory,
           // and you can enter the desired V2Ray configuration in JSON format
           config: url,
-          blockedApps: null,
+          blockedApps: blockedApps,
           bypassSubnets: null,
           proxyOnly: false,
-          notificationDisconnectButtonName: "Disconnect");
+          notificationDisconnectButtonName: "general.actions.disconnect".tr());
     } else {
-      setState(() {
-        isLoading = false;
-      });
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: const Text("Permission denied"),
-          action: SnackBarAction(label: "Retry", onPressed: () {})));
-    }
+        setState(() {
+          isLoading = false;
+        });
+        CustomSnackBar.show(
+          // ignore: use_build_context_synchronously
+          context, 
+          "errors.permission_denied".tr(),
+          SnackBarType.error,
+          onRetry: checkServersAndConnect
+        );
+      }
 
     // await Future.delayed(const Duration(seconds: 1));
     if (mounted) {
@@ -295,18 +302,18 @@ class _HomeScreenState extends State<HomeScreen>
           final textStyle = TextStyle(color: themeColors.textColor);
           return AlertDialog(
             title: Text(
-              "Change Server",
+              "screens.home.change_server".tr(),
               style: textStyle,
             ),
             content: Text(
-              "If you change your server, you will be disconnected and reconnected. Do you want to proceed?",
+              "screens.home.change_server_message".tr(),
               style: textStyle,
             ),
             backgroundColor: themeColors.secondaryBackgroundColor,
             actions: [
               TextButton(
                 child: Text(
-                  "Cancel",
+                  "general.actions.cancel".tr(),
                   style: textStyle,
                 ),
                 onPressed: () {
@@ -315,7 +322,7 @@ class _HomeScreenState extends State<HomeScreen>
               ),
               TextButton(
                 child: Text(
-                  "OK",
+                  "general.ok".tr(),
                   style: textStyle,
                 ),
                 onPressed: () {
@@ -339,7 +346,7 @@ class _HomeScreenState extends State<HomeScreen>
     setUserChoice(selectedServer: server);
     setState(() {
       if (server != "Automatic") {
-        selectedServer = CountryService.getCountryName(server);
+        selectedServer = "locations.$server".tr();
         selectedServerLogo = CountryFlag.fromCountryCode(
           server,
           shape: Circle(),
@@ -362,7 +369,7 @@ class _HomeScreenState extends State<HomeScreen>
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            "Cannot update servers while connected.",
+            "errors.cannot_update_connected".tr(),
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.redAccent,
@@ -387,29 +394,14 @@ class _HomeScreenState extends State<HomeScreen>
 
         isFailed = true;
 
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Row(
-              children: [
-                Icon(Icons.error, color: Colors.white),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    "Failed to update servers, Error: $e",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ],
-            ),
-            backgroundColor: Colors.red,
-            duration: Duration(seconds: 3),
-            action: SnackBarAction(
-              label: "Retry",
-              textColor: Colors.yellow,
-              onPressed: updateServers,
-            ),
-          ),
+        CustomSnackBar.show(
+          // ignore: use_build_context_synchronously
+          context, 
+          "errors.failed_to_update".tr(
+            args: [e.toString()]
+          ), 
+          SnackBarType.error,
+          onRetry: updateServers
         );
       }
     }()
@@ -419,24 +411,11 @@ class _HomeScreenState extends State<HomeScreen>
       });
       if (isFailed) return;
 
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Row(
-            children: [
-              Icon(Icons.check_circle, color: Colors.white),
-              SizedBox(width: 10),
-              Expanded(
-                child: Text(
-                  "Servers updated successfully",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ],
-          ),
-          backgroundColor: Colors.green,
-          duration: Duration(seconds: 2),
-        ),
+      CustomSnackBar.show(
+        // ignore: use_build_context_synchronously
+        context, 
+        "screens.home.servers_updated".tr(), 
+        SnackBarType.success
       );
     });
   }
@@ -495,7 +474,7 @@ class _HomeScreenState extends State<HomeScreen>
                           style: TextStyle(
                               color: themeColors.textColor,
                               fontSize: 16,
-                              fontFamily: "GM"),
+                            ),
                         ),
                         const Spacer(),
                         Icon(Icons.keyboard_arrow_down,

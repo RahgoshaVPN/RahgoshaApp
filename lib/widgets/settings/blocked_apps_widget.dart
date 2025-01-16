@@ -126,7 +126,7 @@ class _BlockedAppsWidgetsState extends State<BlockedAppsWidgets>
           child: TextField(
             controller: searchController,
             decoration: InputDecoration(
-              hintText: context.tr('search_application'),
+              hintText: "screens.settings.blocked_apps.search_application".tr(),
               hintStyle: TextStyle(
                   color: isSearchReady ? Colors.white : Colors.white70),
               border: InputBorder.none,
@@ -150,7 +150,7 @@ class _BlockedAppsWidgetsState extends State<BlockedAppsWidgets>
                 CheckedPopupMenuItem<String>(
                   value: 'toggleSystemApps',
                   checked: isLoadSystemApps,
-                  child: Text(context.tr('show_system_apps')),
+                  child: Text("screens.settings.blocked_apps.show_system_apps".tr()),
                 ),
               ];
             },

@@ -12,7 +12,7 @@ class CustomSnackBar {
       case SnackBarType.error:
         backgroundColor = Colors.red;
         icon = Icons.error;
-        actionLabel = "general.actions.retry".tr();
+        actionLabel = "actions.retry".tr();
         onActionPressed = onRetry;
         break;
       case SnackBarType.success:

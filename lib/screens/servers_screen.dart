@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rahgosha/common/logger.dart';
@@ -94,7 +95,13 @@ class ServersScreenState extends State<ServersScreen> with AutomaticKeepAliveCli
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Center(child: Text("Error loading servers: ${snapshot.error}"));
+              return Center(
+                child: Text(
+                  "errors.error_loading_servers".tr(
+                    args: [snapshot.error.toString()]
+                  )
+                )
+              );
             } else if (snapshot.hasData) {
               return SingleChildScrollView(
                 child: Column(
@@ -109,13 +116,13 @@ class ServersScreenState extends State<ServersScreen> with AutomaticKeepAliveCli
                 ),
               );
             } else {
-              String txt = "No servers found";
+              String txt = "screens.servers.no_servers_found".tr();
               String state = context.read<V2RayStatusNotifier>()
                   .v2rayStatus.value.state;
               logger.debug(state);
               if (
                 state == "DISCONNECTED") {
-                txt = "$txt\nConnect the vpn first";
+                txt = "$txt\n${"screens.servers.connect_vpn_first".tr()}";
               }
               return Center(
                 child: Text(
@@ -138,7 +145,7 @@ class ServersScreenState extends State<ServersScreen> with AutomaticKeepAliveCli
     try {
       final dynamic decoded = jsonDecode(jsonString);
       // logger.debug(decoded["_remark"]);
-      final String remark = decoded['_remark'] ?? 'Unknown';
+      final String remark = decoded['_remark'] ?? "general.unknown".tr();
 
       
       if (remark.length > 50) {
@@ -146,7 +153,7 @@ class ServersScreenState extends State<ServersScreen> with AutomaticKeepAliveCli
       }
       return remark;
     } catch (e) {
-      return 'Invalid Data';
+      return "screens.servers.invalid_data".tr();
     }
   }
 
@@ -252,6 +259,4 @@ class ServersScreenState extends State<ServersScreen> with AutomaticKeepAliveCli
       ),
     );
   }
-
-
 }

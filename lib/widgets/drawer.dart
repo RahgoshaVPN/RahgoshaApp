@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rahgosha/screens/settings_page.dart';
@@ -39,7 +40,7 @@ class DrawerWidget extends StatelessWidget {
                 ),
                 ListTile(
                   title: Text(
-                    'Get Telegram Proxy',
+                    "drawer.get_telegram_proxy".tr(),
                     style: defaultTextStyle,
                   ),
                   leading: Icon(
@@ -52,7 +53,7 @@ class DrawerWidget extends StatelessWidget {
                 ),
                 ListTile(
                   title: Text(
-                    "Get Free Config",
+                    "drawer.get_free_config".tr(),
                     style: defaultTextStyle,
                   ),
                   leading: FaIcon(
@@ -69,7 +70,7 @@ class DrawerWidget extends StatelessWidget {
                 ),
                 ListTile(
                   title: Text(
-                    'Settings',
+                    "drawer.settings".tr(),
                     style: defaultTextStyle,
                   ),
                   onTap: () {
@@ -84,7 +85,7 @@ class DrawerWidget extends StatelessWidget {
                 ),
                 ListTile(
                   title: Text(
-                    "About",
+                    "drawer.about".tr(),
                     style: defaultTextStyle,
                   ),
                   leading: Icon(
@@ -97,7 +98,7 @@ class DrawerWidget extends StatelessWidget {
                 ),
                 ListTile(
                   title: Text(
-                    "Logs",
+                    "drawer.logs".tr(),
                     style: defaultTextStyle,
                   ),
                   leading: Icon(
