@@ -1,3 +1,13 @@
+## [1.0.0-alpha.12](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.11...v1.0.0-alpha.12) (2025-01-16)
+
+### 🐛 Bug Fixes
+
+* Move downloaded APK artifacts to root of dist directory ([974bf75](https://github.com/RahgoshaVPN/RahgoshaApp/commit/974bf750d905bb3adf476552980d52b902cf876e))
+
+### ✨ Styles
+
+* Add custom snackbar for permission denied error ([2f71c6e](https://github.com/RahgoshaVPN/RahgoshaApp/commit/2f71c6efe7af114333058ec291c8d399b3e6de9a))
+
 ## [1.0.0-alpha.11](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.10...v1.0.0-alpha.11) (2025-01-16)
 
 ### 🚀 Features
