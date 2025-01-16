@@ -122,13 +122,17 @@ class _HomeScreenState extends State<HomeScreen>
     // getting configurations from the payload stored in the database
     // by using the choice that is cached
     if (!(await flutterV2ray.requestPermission())) {
-      if (mounted) {
-        setState(() {
-          isLoading = false;
-        
-        });
-        return;
-      }
+      setState(() {
+        isLoading = false;
+      });
+      CustomSnackBar.show(
+        // ignore: use_build_context_synchronously
+        context, 
+        "errors.permission_denied".tr(),
+        SnackBarType.error,
+        onRetry: checkServersAndConnect
+      );
+      return;          
     }
 
     if (mounted) {
