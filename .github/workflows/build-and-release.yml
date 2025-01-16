@@ -21,6 +21,7 @@ jobs:
   build-apks:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         config:
           - { target-platform: android-arm64, apk-name: Rahgosha-Android-arm64.apk }
