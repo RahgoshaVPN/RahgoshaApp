@@ -83,7 +83,7 @@ jobs:
           export APK_PATH="dist/${{ matrix.config.apk-name }}"
           zip -d $APK_PATH 'META-INF/*'
           jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 \
-          -keystore android/keystore.jks \
+          -keystore android/app/keystore.jks \
           -tsa http://timestamp.digicert.com \
           -storepass ${{ secrets.KEYSTORE_PASSWORD }} \
           $APK_PATH ${{ secrets.KEY_ALIAS }}
