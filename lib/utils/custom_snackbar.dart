@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class CustomSnackBar {
@@ -11,7 +12,7 @@ class CustomSnackBar {
       case SnackBarType.error:
         backgroundColor = Colors.red;
         icon = Icons.error;
-        actionLabel = "Retry";
+        actionLabel = "general.actions.retry".tr();
         onActionPressed = onRetry;
         break;
       case SnackBarType.success:
