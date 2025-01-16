@@ -63,13 +63,6 @@ jobs:
         run: mkdir -p dist
 
 
-
-        
-        
-      - name: Decode Keystore
-        run: |
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/keystore.jks
-
       - name: Create keystore & key.properties
         run: |
           echo ${{ secrets.KEYSTORE_BASE64 }} | base64 --decode > android/app/keystore.jks
