@@ -1,3 +1,23 @@
+## [1.0.0-alpha.11](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.10...v1.0.0-alpha.11) (2025-01-16)
+
+### 🚀 Features
+
+* Add CustomSnackBar utility for displaying styled snack bars ([5ee346d](https://github.com/RahgoshaVPN/RahgoshaApp/commit/5ee346d763602876607bd02046bbaa0cfefcae66))
+* Add GitHub link functionality in CustomAppBar and include url_launcher dependency ([d5af2a6](https://github.com/RahgoshaVPN/RahgoshaApp/commit/d5af2a671175dedc628c29554ee7012ddabe867c))
+* Add installed_apps dependency to pubspec.yaml ([38c87c1](https://github.com/RahgoshaVPN/RahgoshaApp/commit/38c87c1ed5f76219d0cdf2b1970fa882fafa852f))
+* Add navigation to Blocked Apps widget and enhance UI elements in settings ([90c4d4a](https://github.com/RahgoshaVPN/RahgoshaApp/commit/90c4d4a1d93de78cc3b4a6c8417e04b25c4679c9))
+* Localize action label in CustomSnackBar for better accessibility ([f0a4f90](https://github.com/RahgoshaVPN/RahgoshaApp/commit/f0a4f90fd63c90dce44b396890bfe7cde9af6587))
+* Update localization keys for improved internationalization across various widgets ([c3a9573](https://github.com/RahgoshaVPN/RahgoshaApp/commit/c3a9573b82a33f2f31b2c35ac01e9204c723ba8c))
+
+### 🐛 Bug Fixes
+
+* Handle loading state when permission request is denied in home screen ([7ba4f85](https://github.com/RahgoshaVPN/RahgoshaApp/commit/7ba4f85280d1141899e459b84c79a16771644a97))
+
+### 🚧 Refactors
+
+* Move logger and theme to common directory for better organization ([17a5b1a](https://github.com/RahgoshaVPN/RahgoshaApp/commit/17a5b1a73ffaef3e2111d945dfe44b946195afe3))
+* Rename connection widget file and update imports for clarity ([4f15857](https://github.com/RahgoshaVPN/RahgoshaApp/commit/4f158576c92e6db1ac3b80a0a3281ce83a701d9e))
+
 ## [1.0.0-alpha.10](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.9...v1.0.0-alpha.10) (2025-01-16)
 
 ### 🐛 Bug Fixes
