@@ -9,7 +9,7 @@ import 'package:rahgosha/common/logger.dart';
 import 'package:rahgosha/utils/appcache.dart';
 import 'package:rahgosha/utils/locations.dart';
 import 'package:rahgosha/utils/tools.dart';
-import 'package:rahgosha/widgets/home/connection.dart';
+import 'package:rahgosha/widgets/home/connection_widget.dart';
 import 'package:rahgosha/widgets/home/server_selection_modal.dart';
 import 'package:rahgosha/common/theme.dart';
 import 'package:rahgosha/widgets/home/vpn_card.dart';
