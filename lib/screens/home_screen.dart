@@ -258,7 +258,9 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   void connectServer(String url) async {
+    connectedServerDelay = null;
     if (await flutterV2ray.requestPermission()) {
+      
       SharedPreferences prefs = await SharedPreferences.getInstance();
       List<String> blockedApps = prefs.getStringList('blockedApps') ?? [];
 
@@ -328,7 +330,7 @@ class _HomeScreenState extends State<HomeScreen>
             actions: [
               TextButton(
                 child: Text(
-                  "actions.cancel".tr(),
+                  "general.no".tr(),
                   style: textStyle,
                 ),
                 onPressed: () {
@@ -337,7 +339,7 @@ class _HomeScreenState extends State<HomeScreen>
               ),
               TextButton(
                 child: Text(
-                  "general.ok".tr(),
+                  "general.yes".tr(),
                   style: textStyle,
                 ),
                 onPressed: () {

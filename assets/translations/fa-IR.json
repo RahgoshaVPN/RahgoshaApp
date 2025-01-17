@@ -8,7 +8,9 @@
             "connecting": "در حال اتصال...",
             "connected": "متصل شد"
         },
-        "unknown": "ناشناخته"
+        "unknown": "ناشناخته",
+        "yes": "بله",
+        "no": "خیر"
     },
     "actions": {
         "cancel": "لغو",

@@ -8,7 +8,9 @@
             "connecting": "Connecting...",
             "connected": "Connected"    
         },
-        "unknown": "Unknown"
+        "unknown": "Unknown",
+        "yes": "Yes",
+        "no": "No"
     },
     "actions": {
         "cancel": "Cancel",
