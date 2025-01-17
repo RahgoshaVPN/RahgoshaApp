@@ -105,8 +105,9 @@ class _VpnCardState extends State<VpnCard> {
                     shape: Circle(),
                     ) : 
                   Icon(
-                    Icons.public,
-                    color: Colors.grey[300],
+                    Icons.bolt,
+                    // color: themeColors.primaryColor,
+                    color: Colors.amber,
                     size: 40,
                   ),
                   SizedBox(width: 12),
@@ -220,7 +221,7 @@ class _VpnCardState extends State<VpnCard> {
                 Future.delayed(Duration(seconds: 4), () {
                   try {
                     setState(() {
-                      ipText = "screens.home.vpn_card.show_ip_address".tr();
+                      ipText = "screens.home.vpn_card.show_ip_address";
                       ipflag = null;
                     });
                   } catch (e) {
@@ -249,7 +250,7 @@ class _VpnCardState extends State<VpnCard> {
                   )
                 else ...[
                   Text(
-                    ipText ?? "screens.home.vpn_card.show_ip_address".tr(),
+                    (ipText ?? "screens.home.vpn_card.show_ip_address").tr(),
                     overflow: TextOverflow.ellipsis, 
                     maxLines: 1, 
                     softWrap: false, 

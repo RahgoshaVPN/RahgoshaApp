@@ -82,9 +82,9 @@ class _HomeScreenState extends State<HomeScreen>
         color: Colors.yellow,
         weight: 20,
       );
-      selectedServer = "locations.Automatic".tr();
+      selectedServer = "Automatic";
     } else {
-      selectedServer = "locations.$userChoice".tr();
+      selectedServer = userChoice;
       selectedServerLogo = CountryFlag.fromCountryCode(
         userChoice,
         shape: Circle(),
@@ -303,7 +303,10 @@ class _HomeScreenState extends State<HomeScreen>
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          final textStyle = TextStyle(color: themeColors.textColor);
+          final textStyle = TextStyle(
+            color: themeColors.textColor,
+            fontFamily: "Vazirmatn"
+          );
           return AlertDialog(
             title: Text(
               "screens.home.change_server".tr(),
@@ -474,7 +477,7 @@ class _HomeScreenState extends State<HomeScreen>
                           width: 12,
                         ),
                         Text(
-                          selectedServer.toString(),
+                          "locations.$selectedServer".tr(),
                           style: TextStyle(
                               color: themeColors.textColor,
                               fontSize: 16,
@@ -549,7 +552,7 @@ class _HomeScreenState extends State<HomeScreen>
                           upload: value.upload,
                           downloadSpeed: value.downloadSpeed,
                           uploadSpeed: value.uploadSpeed,
-                          selectedServer: selectedServer,
+                          selectedServer: "locations.$selectedServer".tr(),
                           selectedServerCC: getUserChoice(),
                           duration: value.duration,
                         )
