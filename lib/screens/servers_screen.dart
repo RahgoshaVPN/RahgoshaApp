@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui' as ui;
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -161,83 +162,90 @@ class ServersScreenState extends State<ServersScreen> with AutomaticKeepAliveCli
   @override
   bool get wantKeepAlive => true;
   
-
   Widget _buildProfileCard(String name, int index, int delay) {
-    return Card(
-      elevation: 0,
-      color: themeColors.backgroundColor,
-      child: Row(
-        children: [
-            const SizedBox(width: 10,),
+    return Directionality(
+      textDirection: ui.TextDirection.ltr,
+      child: Card(
+        elevation: 0,
+        color: themeColors.backgroundColor,
+        child: Row(
+          children: [
+            const SizedBox(width: 10),
             Container(
               width: 5,
               height: 50,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: _selectedIndex == index ? 
-                themeColors.primaryColor : themeColors.backgroundColor,
+                color: _selectedIndex == index
+                    ? themeColors.primaryColor
+                    : themeColors.backgroundColor,
               ),
             ),
-          Expanded(
-            child: GestureDetector(
-              onTap: _selectedIndex == index ? null : () async {
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                String userChoice = getUserChoice();
-                prefs.setInt("hc-$userChoice-index", index);
+            Expanded(
+              child: GestureDetector(
+                onTap: _selectedIndex == index
+                    ? null
+                    : () async {
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        String userChoice = getUserChoice();
+                        prefs.setInt("hc-$userChoice-index", index);
 
+                        final selectedKey =
+                            _serversProfiles?.keys.elementAt(index);
+                        if (selectedKey != null) {
+                          // ignore: use_build_context_synchronously
+                          final urlNotifier = context.read<V2RayURLNotifier>();
+                          prefs.setString("hc-$userChoice-url", selectedKey);
+                          urlNotifier.updateURL(selectedKey.toString());
+                          logger.debug("Selected key: $selectedKey");
+                          logger.debug(
+                              "Selected Profile : ${jsonDecode(selectedKey)["_remark"]}");
+                        }
 
-                final selectedKey = _serversProfiles?.keys.elementAt(index);
-                if (selectedKey != null) {
-                  // ignore: use_build_context_synchronously
-                  final urlNotifier = context.read<V2RayURLNotifier>();
-                  prefs.setString("hc-$userChoice-url", selectedKey);
-                  urlNotifier.updateURL(selectedKey.toString());
-                  logger.debug("Selected key: $selectedKey");
-                  logger.debug("Selected Profile : ${jsonDecode(selectedKey)["_remark"]}");
-                  
-                  // logger.debug("Remark: ${jsonDecode(selectedKey)["_remark"]}");
-                }
-
-                setState(()  {
-                  logger.debug("Index: $index");
-                  _selectedIndex = index;
-                });
-              },
-
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                child: Text(
-                  name,
-                  style: TextStyle(
-                    color: themeColors.secondaryTextColor,
-                    fontSize: 16,
+                        setState(() {
+                          logger.debug("Index: $index");
+                          _selectedIndex = index;
+                        });
+                      },
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                  child: Text(
+                    name,
+                    style: TextStyle(
+                      color: themeColors.secondaryTextColor,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          _buildDelayIndicator(delay)
-        ],
+            _buildDelayIndicator(delay),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildDelayIndicator(int delay) {
     if (delay == -1) {
-      return const Padding(
-        padding: EdgeInsets.only(right: 16.0),
-        child: Text(
-          "X",
-          style: TextStyle(
-            color: Colors.red,
-            fontWeight: FontWeight.bold,
-            fontSize: 14,
+      return Padding(
+        padding: const EdgeInsets.only(right: 16.0),
+        child: Directionality(
+          textDirection: ui.TextDirection.ltr,
+          child: Text(
+            "X",
+            style: const TextStyle(
+              color: Colors.red,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
           ),
         ),
       );
     }
 
-    
     Color delayColor;
     if (delay < 2000) {
       delayColor = Colors.green;
@@ -249,14 +257,18 @@ class ServersScreenState extends State<ServersScreen> with AutomaticKeepAliveCli
 
     return Padding(
       padding: const EdgeInsets.only(right: 16.0),
-      child: Text(
-        "$delay",
-        style: TextStyle(
-          color: delayColor,
-          fontWeight: FontWeight.w300,
-          fontSize: 12,
+      child: Directionality(
+        textDirection: ui.TextDirection.ltr,
+        child: Text(
+          "$delay",
+          style: TextStyle(
+            color: delayColor,
+            fontWeight: FontWeight.w300,
+            fontSize: 12,
+          ),
         ),
       ),
     );
   }
+
 }
