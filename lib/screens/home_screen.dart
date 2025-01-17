@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui' as ui;
 
 import 'package:country_flags/country_flags.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -16,6 +17,7 @@ import 'package:rahgosha/common/theme.dart';
 import 'package:rahgosha/widgets/home/vpn_card.dart';
 import 'package:rahgosha/utils/notifiers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/cupertino.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -284,7 +286,12 @@ class _HomeScreenState extends State<HomeScreen>
         );
       }
 
-    // await Future.delayed(const Duration(seconds: 1));
+    Future.delayed(
+      Duration(seconds: 1),
+      () {
+        getCurrentServerDelay();
+      },
+    );
     if (mounted) {
       setState(() {
         isLoading = false;
@@ -292,6 +299,7 @@ class _HomeScreenState extends State<HomeScreen>
     } else {
       isLoading = false;
     }
+
   }
 
   Future<void> disconnectServer() async {
@@ -353,7 +361,7 @@ class _HomeScreenState extends State<HomeScreen>
     setUserChoice(selectedServer: server);
     setState(() {
       if (server != "Automatic") {
-        selectedServer = "locations.$server".tr();
+        selectedServer = server;
         selectedServerLogo = CountryFlag.fromCountryCode(
           server,
           shape: Circle(),
@@ -544,8 +552,10 @@ class _HomeScreenState extends State<HomeScreen>
                           isLoading: isLoading,
                           status: value.state),
                       if (value.state == "CONNECTED") ...[
+                        const SizedBox(height: 20,),
+                        _buildDelayIndicator(),
                         const SizedBox(
-                          height: 60,
+                          height: 40,
                         ),
                         VpnCard(
                           download: value.download,
@@ -564,5 +574,78 @@ class _HomeScreenState extends State<HomeScreen>
         ],
       )),
     );
+  }
+
+
+  Widget _buildDelayIndicator() {
+    return Directionality(
+      textDirection: ui.TextDirection.ltr,
+      child: Container(
+        margin: const EdgeInsets.only(top: 0),
+        width: 90,
+        height: 30,
+        child: Center(
+          child: _buildDelayDisplay(),
+        ),
+      ),
+    );
+  }
+
+Widget _buildDelayDisplay() {
+  return Directionality(
+    textDirection: ui.TextDirection.ltr,
+      child: SizedBox(
+        height: 50,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(12),
+          onTap: getCurrentServerDelay,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(CupertinoIcons.wifi, color: Colors.white, size: 18),
+              const SizedBox(width: 8),
+              if (connectedServerDelay == null)
+                Container(
+                  width: 50,
+                  height: 18,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withAlpha(50),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                )
+              else ...[
+                Text(
+                  connectedServerDelay.toString(),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+                const SizedBox(width: 4),
+                const Text('ms'),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+
+
+
+  void getCurrentServerDelay() async {
+    if (v2rayStatus.value.state == 'CONNECTED') {
+      if (mounted) {
+        setState(() {
+          connectedServerDelay = null;
+          
+        });
+      }
+      connectedServerDelay = await flutterV2ray.getConnectedServerDelay();
+      setState(() {
+        isFetchingPing = true;
+      });
+    }
+    if (!mounted) return;
   }
 }
