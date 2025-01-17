@@ -122,7 +122,8 @@ void clearHotConnectCache() async {
 String localizeNumber(dynamic number) {
   final numberString = number.toString(); 
   final translatedDigits = numberString.split('').map((digit) {
-    return 'numbers.$digit'.tr();
+    final localizedDigit = 'numbers.$digit'.tr();
+    return localizedDigit == 'numbers.$digit' ? digit : localizedDigit;
   }).join('');
   return translatedDigits;
 }
