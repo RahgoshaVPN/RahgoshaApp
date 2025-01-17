@@ -44,31 +44,35 @@ class _BlockedAppsWidgetsState extends State<BlockedAppsWidgets>
   }
 
   Future<void> _loadApps() async {
-    setState(() {
-      isLoading = true;
-    });
+    if (mounted) {
+      setState(() {
+        isLoading = true;
+      });
+    }
 
     List<AppInfo> installedApps =
         await InstalledApps.getInstalledApps(!isLoadSystemApps, true);
 
-    setState(() {
-      apps = installedApps;
+    if (mounted) {
+      setState(() {
+        apps = installedApps;
 
-      apps!.sort((a, b) {
-        bool aIsBlocked = blockedApps.contains(a.packageName);
-        bool bIsBlocked = blockedApps.contains(b.packageName);
-        return (bIsBlocked ? 1 : 0).compareTo(aIsBlocked ? 1 : 0);
-      });
+        apps!.sort((a, b) {
+          bool aIsBlocked = blockedApps.contains(a.packageName);
+          bool bIsBlocked = blockedApps.contains(b.packageName);
+          return (bIsBlocked ? 1 : 0).compareTo(aIsBlocked ? 1 : 0);
+        });
 
-      filteredApps = apps;
-      isLoading = false;
+        filteredApps = apps;
+        isLoading = false;
 
-      Future.delayed(Duration(milliseconds: 500), () {
-        setState(() {
-          isSearchReady = true;
+        Future.delayed(Duration(milliseconds: 500), () {
+          setState(() {
+            isSearchReady = true;
+          });
         });
       });
-    });
+    }
   }
 
   void _filterApps() {
