@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen>
         color: Colors.yellow,
         weight: 20,
       );
-      selectedServer = "Automatic";
+      selectedServer = "locations.Automatic".tr();
     } else {
       selectedServer = "locations.$userChoice".tr();
       selectedServerLogo = CountryFlag.fromCountryCode(
@@ -261,16 +261,16 @@ class _HomeScreenState extends State<HomeScreen>
       List<String> blockedApps = prefs.getStringList('blockedApps') ?? [];
 
       String appName = "general.app_name".tr();
-      String translatedServer = "locations.$selectedServer".tr();
+      // String translatedServer = "locations.$selectedServer".tr();
       flutterV2ray.startV2Ray(
-          remark: "$appName: $translatedServer",
+          remark: "$appName: $selectedServer",
           // The use of parser.getFullConfiguration() is not mandatory,
           // and you can enter the desired V2Ray configuration in JSON format
           config: url,
           blockedApps: blockedApps,
           bypassSubnets: null,
           proxyOnly: false,
-          notificationDisconnectButtonName: "general.actions.disconnect".tr());
+          notificationDisconnectButtonName: "actions.disconnect".tr());
     } else {
         setState(() {
           isLoading = false;
@@ -317,7 +317,7 @@ class _HomeScreenState extends State<HomeScreen>
             actions: [
               TextButton(
                 child: Text(
-                  "general.actions.cancel".tr(),
+                  "actions.cancel".tr(),
                   style: textStyle,
                 ),
                 onPressed: () {
