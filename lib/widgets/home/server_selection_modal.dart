@@ -132,6 +132,8 @@ Future<List<Widget>> loadOptions(
     for (String countryCode in recommendedServers) {
       if (!countryCodes.contains(countryCode)) continue;
 
+      logger.debug("Selected Server: $selectedServer, CountryCode: $countryCode");
+
       final String countryName = "locations.$countryCode".tr();
       options.add(
         ListTile(
@@ -145,7 +147,7 @@ Future<List<Widget>> loadOptions(
             width: 20,
             shape: const Circle(),
           ),
-          trailing: selectedServer == countryName
+          trailing: selectedServer == countryCode
               ? Icon(Icons.check, color: Colors.green)
               : null,
         ),
