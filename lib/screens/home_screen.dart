@@ -615,7 +615,7 @@ Widget _buildDelayDisplay() {
                 )
               else ...[
                 Text(
-                  connectedServerDelay.toString(),
+                  localizeNumber(connectedServerDelay ?? -1),
                   style: TextStyle(
                     fontWeight: FontWeight.bold
                   ),

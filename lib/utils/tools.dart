@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:rahgosha/common/logger.dart';
 import 'package:rahgosha/utils/appcache.dart';
@@ -115,4 +116,13 @@ void clearHotConnectCache() async {
       prefs.remove("$key-index");
     }
   }
+}
+
+
+String localizeNumber(dynamic number) {
+  final numberString = number.toString(); 
+  final translatedDigits = numberString.split('').map((digit) {
+    return 'numbers.$digit'.tr();
+  }).join('');
+  return translatedDigits;
 }

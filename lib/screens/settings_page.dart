@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:rahgosha/utils/tools.dart';
 import 'package:rahgosha/widgets/settings/blocked_apps_widget.dart';
 import 'package:rahgosha/widgets/settings/languages_widget.dart';
 import 'package:rahgosha/common/theme.dart';
@@ -208,7 +209,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             divisions: 23,
                             activeColor: themeColors.primaryColor,
                             label: "screens.settings.update_interval.label".tr(
-                              args: [_updateInterval.toInt().toString()]
+                              args: [localizeNumber(_updateInterval.toInt())]
                             ),
                             onChanged: (value) {
                               setState(() {

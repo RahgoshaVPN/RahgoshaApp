@@ -260,7 +260,7 @@ class ServersScreenState extends State<ServersScreen> with AutomaticKeepAliveCli
       child: Directionality(
         textDirection: ui.TextDirection.ltr,
         child: Text(
-          "$delay",
+          localizeNumber(delay),
           style: TextStyle(
             color: delayColor,
             fontWeight: FontWeight.w300,
