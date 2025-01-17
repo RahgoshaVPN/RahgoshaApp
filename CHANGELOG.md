@@ -1,3 +1,16 @@
+## [1.0.0-alpha.14](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.13...v1.0.0-alpha.14) (2025-01-17)
+
+### 🚀 Features
+
+* add Sweden to the list of recommended countries ([f3d2342](https://github.com/RahgoshaVPN/RahgoshaApp/commit/f3d2342288e50b266486940a62fa316457296869))
+* **ui:** display Timeout when server delay is -1 ([a8c1554](https://github.com/RahgoshaVPN/RahgoshaApp/commit/a8c1554eb7bbf3e115d2540cdff2db68ebf5a8d1))
+
+### 🐛 Bug Fixes
+
+* **localization:** fallback to original character if translation is missing ([ed8445a](https://github.com/RahgoshaVPN/RahgoshaApp/commit/ed8445ab48fc41ba3b7e33e79ad9a36ae6152271))
+* **ui:** resolve issue with checkmark not displaying properly ([796abd2](https://github.com/RahgoshaVPN/RahgoshaApp/commit/796abd28c34212bcd0227b35c5e4290798103963))
+* **ui:** resolve issue with checkmark not displaying properly ([cfa225b](https://github.com/RahgoshaVPN/RahgoshaApp/commit/cfa225b8af269c01b1214529b09a9b66f7a4f045))
+
 ## [1.0.0-alpha.13](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.12...v1.0.0-alpha.13) (2025-01-17)
 
 ### 🚀 Features
