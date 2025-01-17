@@ -39,10 +39,10 @@
             "vpn_card": {
                 "real_time_usage": "استفاده ریل-تایم",
                 "total_usage": "کل استفاده",
-                "show_ip_address": "نمایش آدرس IP",
-                "unknown_ip": "IP ناشناس",
+                "show_ip_address": "نمایش آدرس آیپی",
+                "unknown_ip": "آیپی ناشناس",
                 "unknown": "ناشناس",
-                "ip_error": "خطا در واکشی اطلاعات IP"
+                "ip_error": "خطا در واکشی اطلاعات آیپی"
             }
         },
         "servers": {
