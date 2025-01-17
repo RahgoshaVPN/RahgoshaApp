@@ -195,7 +195,7 @@ Future<List<Widget>> loadOptions(
           width: 20,
           shape: const Circle(),
         ),
-        trailing: selectedServer == countryName
+        trailing: selectedServer == countryCode
             ? Icon(Icons.check, color: Colors.green)
             : null,
       ),
