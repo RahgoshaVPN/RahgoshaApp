@@ -582,7 +582,7 @@ class _HomeScreenState extends State<HomeScreen>
       textDirection: ui.TextDirection.ltr,
       child: Container(
         margin: const EdgeInsets.only(top: 0),
-        width: 90,
+        width: 100,
         height: 30,
         child: Center(
           child: _buildDelayDisplay(),
@@ -594,50 +594,56 @@ class _HomeScreenState extends State<HomeScreen>
 Widget _buildDelayDisplay() {
   return Directionality(
     textDirection: ui.TextDirection.ltr,
-      child: SizedBox(
-        height: 50,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(12),
-          onTap: getCurrentServerDelay,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(CupertinoIcons.wifi, color: Colors.white, size: 18),
-              const SizedBox(width: 8),
-              if (connectedServerDelay == null)
-                Container(
-                  width: 50,
-                  height: 18,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withAlpha(50),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                )
-              else ...[
-                Text(
-                  localizeNumber(connectedServerDelay ?? -1),
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold
-                  ),
+    child: SizedBox(
+      height: 50,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(12),
+        onTap: getCurrentServerDelay,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(CupertinoIcons.wifi, color: Colors.white, size: 18),
+            const SizedBox(width: 8),
+            if (connectedServerDelay == null)
+              Container(
+                width: 50,
+                height: 18,
+                decoration: BoxDecoration(
+                  color: Colors.white.withAlpha(50),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                const SizedBox(width: 4),
-                const Text(
-                  'ms',
-                  style: TextStyle(
-                    fontFamily: "Vazirmatn",
-                    fontWeight: FontWeight.bold
-                  ),
+              )
+            else if (connectedServerDelay == -1) ...[
+              Text(
+                'actions.timeout'.tr(),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "Vazirmatn"
                 ),
-              ],
+              ),
+            ]
+            else ...[
+              Text(
+                localizeNumber(connectedServerDelay),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(width: 4),
+              const Text(
+                'ms',
+                style: TextStyle(
+                  fontFamily: "Vazirmatn",
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
-          ),
+          ],
         ),
       ),
-    );
-  }
-
-
-
+    ),
+  );
+}
 
   void getCurrentServerDelay() async {
     if (v2rayStatus.value.state == 'CONNECTED') {

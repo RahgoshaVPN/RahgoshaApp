@@ -14,7 +14,8 @@
         "cancel": "Cancel",
         "retry": "Retry",
         "connect": "Connect",
-        "disconnect": "Disconnect"
+        "disconnect": "Disconnect",
+        "timeout": "Timeout"
     },
     "errors": {
         "failed_to_connect": "Failed to connect to this server",

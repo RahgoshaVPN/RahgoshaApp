@@ -14,7 +14,8 @@
         "cancel": "لغو",
         "retry": "تلاش مجدد",
         "connect": "اتصال",
-        "disconnect": "قطع کردن"
+        "disconnect": "قطع کردن",
+        "timeout": "عدم ارتباط"
     },
     "errors": {
         "failed_to_connect": "اتصال به این سرور انجام نشد",
