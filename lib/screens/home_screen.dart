@@ -442,7 +442,7 @@ class _HomeScreenState extends State<HomeScreen>
     Future<List<Widget>> optionsFuture = loadOptions(
       handleServerSelection,
       selectedServer,
-      ["DE", "FI", "NL", "FR", "US", "CA", "GB"],
+      ["DE", "FI", "NL", "FR", "US", "CA", "GB", "SE"],
     );
 
     return Scaffold(
