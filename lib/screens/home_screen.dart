@@ -621,7 +621,13 @@ Widget _buildDelayDisplay() {
                   ),
                 ),
                 const SizedBox(width: 4),
-                const Text('ms'),
+                const Text(
+                  'ms',
+                  style: TextStyle(
+                    fontFamily: "Vazirmatn",
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
               ],
             ],
           ),
