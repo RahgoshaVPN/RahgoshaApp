@@ -1,3 +1,25 @@
+## [1.0.0-alpha.13](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.12...v1.0.0-alpha.13) (2025-01-17)
+
+### 🚀 Features
+
+* Add delay indicator for the main page ([6f4fdbc](https://github.com/RahgoshaVPN/RahgoshaApp/commit/6f4fdbc30cefd5b1d847a4c390a6d1e8d34e4c9b))
+
+### 🐛 Bug Fixes
+
+* Fix Automatic and general.actions.cancel translations ([a6bb94f](https://github.com/RahgoshaVPN/RahgoshaApp/commit/a6bb94f43931aa255c74fa3b12d0391f685ffd98))
+* Fix cards direction ([eff4a9d](https://github.com/RahgoshaVPN/RahgoshaApp/commit/eff4a9da8686e97f3bd03e34e2956cce56aa0c48))
+* Fix some incomplete translations ([b407856](https://github.com/RahgoshaVPN/RahgoshaApp/commit/b407856ed1d38ce579354044197e380a5cceb82e))
+* Fix state management in blocked apps widget ([9bab367](https://github.com/RahgoshaVPN/RahgoshaApp/commit/9bab36755810ff4e28a9a1cf1137bed8a2c5a9a0))
+* Replaced IP with آیپی in fa-IR.json translations ([6eec56f](https://github.com/RahgoshaVPN/RahgoshaApp/commit/6eec56f883786c810890985541e1900e424d6da4))
+
+### 🚧 Refactors
+
+* improve localization for some numbers ([90d298b](https://github.com/RahgoshaVPN/RahgoshaApp/commit/90d298b77392ed7ced4057ebbd833d1c7475a4fd))
+
+### ✨ Styles
+
+* Bold fontweight for ms text ([6c86847](https://github.com/RahgoshaVPN/RahgoshaApp/commit/6c868473993751f706fdc5cbbd4d62b1ac831ea9))
+
 ## [1.0.0-alpha.12](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.11...v1.0.0-alpha.12) (2025-01-16)
 
 ### 🐛 Bug Fixes
