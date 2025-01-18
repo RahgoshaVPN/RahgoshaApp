@@ -264,10 +264,10 @@ class _HomeScreenState extends State<HomeScreen>
       SharedPreferences prefs = await SharedPreferences.getInstance();
       List<String> blockedApps = prefs.getStringList('blockedApps') ?? [];
 
-      String appName = "general.app_name".tr();
-      // String translatedServer = "locations.$selectedServer".tr();
+      String connectedText = "general.is_connected".tr();
+      String translatedServer = "locations.$selectedServer".tr();
       flutterV2ray.startV2Ray(
-          remark: "$appName: $selectedServer",
+          remark: "$connectedText: $translatedServer",
           // The use of parser.getFullConfiguration() is not mandatory,
           // and you can enter the desired V2Ray configuration in JSON format
           config: url,
@@ -360,6 +360,7 @@ class _HomeScreenState extends State<HomeScreen>
       );
       return;
     }
+    logger.debug("Selected server: $server");
     setUserChoice(selectedServer: server);
     setState(() {
       if (server != "Automatic") {
