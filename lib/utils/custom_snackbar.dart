@@ -43,7 +43,7 @@ class CustomSnackBar {
           ],
         ),
         backgroundColor: backgroundColor,
-        duration: Duration(seconds: 3),
+        duration: Duration(seconds: 1),
         action: onActionPressed != null
             ? SnackBarAction(
                 label: actionLabel,
