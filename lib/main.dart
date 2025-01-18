@@ -65,11 +65,15 @@ Future<void> _initializeApp() async {
     logger.debug("User choice on main: $userChoice");
 
     // Perform auto-update tasks if enabled
+    
     if (prefs.getBool("autoUpdateEnabled") ?? true) {
+      logger.debug("Auto update is enabled!");
       await Future.wait([
         reloadStorage(userChoice: userChoice ?? "Automatic"),
         reloadCache(),
       ]);
+    } else {
+      await reloadCache();
     }
   } catch (err) {
     logger.error("Failed to initialize app: $err");
