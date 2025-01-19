@@ -12,7 +12,8 @@
         "yes": "بله",
         "no": "خیر",
         "is_connected": "رهگشا متصل است",
-        "copied_message": "{} در کلیپ بورد شما کپی شد"
+        "copied_message": "{} در کلیپ بورد شما کپی شد",
+        "profile": "پروفایل"
     },
     "actions": {
         "cancel": "لغو",

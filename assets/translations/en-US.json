@@ -12,7 +12,8 @@
         "yes": "Yes",
         "no": "No",
         "is_connected": "Rahgosha is connected",
-        "copied_message": "{} copied to your clipboard"
+        "copied_message": "{} copied to your clipboard",
+        "profile": "Profile"
     },
     "actions": {
         "cancel": "Cancel",

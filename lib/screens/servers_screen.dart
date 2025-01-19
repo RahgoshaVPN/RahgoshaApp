@@ -3,8 +3,10 @@ import 'dart:ui' as ui;
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rahgosha/common/logger.dart';
+import 'package:rahgosha/utils/custom_snackbar.dart';
 import 'package:rahgosha/utils/tools.dart';
 import 'package:rahgosha/common/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -219,6 +221,34 @@ class ServersScreenState extends State<ServersScreen> with AutomaticKeepAliveCli
                     ),
                   ),
                 ),
+                onLongPress: () {
+                  final selectedKey =
+                      _serversProfiles?.keys.elementAt(index);
+                  if (selectedKey != null) {
+                    // ignore: use_build_context_synchronously
+                    dynamic decodedProfile = jsonDecode(selectedKey);
+                    String remark = decodedProfile["_remark"];
+                    if (remark.length > 50) {
+                      remark = "${remark.substring(0, 50)}...";
+                    }
+                    Clipboard.setData(
+                      ClipboardData(text: decodedProfile["_url"])
+                    );
+
+
+                    CustomSnackBar.show(
+                      // ignore: use_build_context_synchronously
+                      context, 
+                      "general.copied_message".tr(
+                        args: ["${"general.profile".tr()} \"$remark\""]
+                      ), 
+                      SnackBarType.info
+                    );
+
+                    logger.debug(
+                      "Copied Profile : ${jsonDecode(selectedKey)["_remark"]}");
+                  }
+                },
               ),
             ),
             _buildDelayIndicator(delay),
@@ -270,5 +300,4 @@ class ServersScreenState extends State<ServersScreen> with AutomaticKeepAliveCli
       ),
     );
   }
-
 }
