@@ -1,3 +1,22 @@
+## [1.0.0-alpha.15](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.14...v1.0.0-alpha.15) (2025-01-19)
+
+### 🚀 Features
+
+* Add "Hold to copy" feature for V2Ray profiles in servers page ([215ec02](https://github.com/RahgoshaVPN/RahgoshaApp/commit/215ec02a3ce2b51dd402e526145c3008ceb6eec2))
+* Add donation section with wallet addresses ([c4648c9](https://github.com/RahgoshaVPN/RahgoshaApp/commit/c4648c958b2d1781115676915dc2e777685a20e6))
+* Add Tip for server section and enable/disable Tips from settings ([b8a4dc0](https://github.com/RahgoshaVPN/RahgoshaApp/commit/b8a4dc0b361cf715879eed1d5f2b11df2de6c52f))
+
+### 🐛 Bug Fixes
+
+* set snackbar duration to 1 second ([ecbbe81](https://github.com/RahgoshaVPN/RahgoshaApp/commit/ecbbe81c34801b920d1c07f34a4f1bea07e53ed6))
+* **settings:** resolve user choice not being set when Auto Update is off ([7471b49](https://github.com/RahgoshaVPN/RahgoshaApp/commit/7471b4905c682b7f8cbe75a544e5857ba9d4dd83))
+* **translations:** update notification translation ([de5c839](https://github.com/RahgoshaVPN/RahgoshaApp/commit/de5c8394c617ca94f0af22f13f8263dd803ec1f1))
+
+### 🚧 Refactors
+
+* Changed some of persian translations ([f33cc36](https://github.com/RahgoshaVPN/RahgoshaApp/commit/f33cc369985b63515cf430da3ca6e876aaf98ff0))
+* Replaced "ok" and "cancel" with "yes" and "no" ([63267eb](https://github.com/RahgoshaVPN/RahgoshaApp/commit/63267eb80482cf901d60f98730e2b049535fd5c9))
+
 ## [1.0.0-alpha.14](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.13...v1.0.0-alpha.14) (2025-01-17)
 
 ### 🚀 Features
