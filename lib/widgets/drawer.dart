@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:rahgosha/screens/donate_screen.dart';
 import 'package:rahgosha/screens/settings_page.dart';
 import 'package:rahgosha/utils/appcache.dart';
 import 'package:rahgosha/common/theme.dart';
@@ -108,7 +109,24 @@ class DrawerWidget extends StatelessWidget {
                   onTap: () {
                     Navigator.pop(context);
                   },
+
                 ),
+                ListTile(
+                  title: Text(
+                    "drawer.donate".tr(),
+                    style: defaultTextStyle,
+                    
+                  ),
+                  leading: Icon(
+                    FontAwesomeIcons.handHoldingDollar,
+                    color: themeColors.textColor,
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => DonateScreen())
+                    );
+                  },
+                )
               ],
             ),
           ),

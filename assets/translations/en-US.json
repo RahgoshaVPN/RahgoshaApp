@@ -10,7 +10,9 @@
         },
         "unknown": "Unknown",
         "yes": "Yes",
-        "no": "No"
+        "no": "No",
+        "is_connected": "Rahgosha is connected",
+        "copied_message": "{} copied to your clipboard"
     },
     "actions": {
         "cancel": "Cancel",
@@ -88,6 +90,24 @@
                 "error": "An error occurred",
                 "settings": "Settings"
             }
+        },
+        "donate": {
+            "title": "Donate to application",
+            "wallets": {
+                "ton": "Ton Wallet",
+                "bnb": "BNB Smart Chain Wallet",
+                "ltc": "Litecoin Wallet",
+                "btc": "Bitcoin Wallet",
+                "eth": "Ethereum Wallet",
+                "trx": "Tron Wallet",
+                "sol": "Solana Wallet",
+                "usdt": "USDT Wallets",
+                "usdt_sol": "USDT SOL Wallet (SPL)",
+                "usdt_bnb": "USDT BNB Wallet (BEP-20)",
+                "usdt_eth": "USDT Ethereum Wallet (ERC-20)",
+                "usdt_trx": "USDT TRX Wallet (TRC-20)"
+            },
+            "info": "Rahgosha is designed with the goal of providing free and easy access to the open internet for everyone. The app does not charge you for its services, but you can support us in the development and improvement of the application by making a donation. Whatever the amount, your contribution is valuable to us and will help advance the project. To donate, simply copy the wallet address of your choice and send the desired amount."
         }
     },
     "drawer": {
@@ -95,7 +115,8 @@
         "get_free_config": "Get Free Config",
         "settings": "Settings",
         "about": "About",
-        "logs": "Logs"
+        "logs": "Logs",
+        "donate": "Donate"
     },
     "numbers": {
         "1": "1",
