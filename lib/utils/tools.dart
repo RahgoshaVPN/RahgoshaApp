@@ -82,6 +82,11 @@ Future<void> reloadCache() async {
     prefs.getString("userChoice") ?? "Automatic"
   );
 
+  cache.set(
+    "tipsEnabled", 
+    prefs.getBool("tipsEnabled") ?? true
+  );
+
   logger.debug("reloaded cache");
   logger.debug("Choice: ${cache.get("userChoice")}");
 }
@@ -96,6 +101,7 @@ void setUserChoice({required String selectedServer}) async {
 }
 
 String getUserChoice() => cache.get("userChoice") ?? "Automatic";
+bool areTipsEnabled() => cache.get("tipsEnabled") ?? true;
 
 void safePop(context) {
   if (Navigator.canPop(context)) Navigator.pop(context);

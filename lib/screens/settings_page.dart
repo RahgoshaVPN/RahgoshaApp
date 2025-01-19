@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:rahgosha/utils/appcache.dart';
 import 'package:rahgosha/utils/tools.dart';
 import 'package:rahgosha/widgets/settings/blocked_apps_widget.dart';
 import 'package:rahgosha/widgets/settings/languages_widget.dart';
@@ -19,6 +20,7 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   bool _autoUpdateEnabled = true;
   bool _hotConnectEnabled = true;
+  bool _tipsEnabled = true;
   double _updateInterval = 1.0;
   String? _selectedLanguage;
 
@@ -40,6 +42,7 @@ class _SettingsPageState extends State<SettingsPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _autoUpdateEnabled = prefs.getBool('autoUpdateEnabled') ?? true;
     _hotConnectEnabled = prefs.getBool('hotConnectEnabled') ?? true;
+    _tipsEnabled = prefs.getBool('tipsEnabled') ?? true;
     setState(() {});
   }
 
@@ -47,7 +50,9 @@ class _SettingsPageState extends State<SettingsPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('autoUpdateEnabled', _autoUpdateEnabled);
     await prefs.setBool('hotConnectEnabled', _hotConnectEnabled);
+    await prefs.setBool("tipsEnabled", _tipsEnabled);
     await prefs.setDouble("updateInterval", _updateInterval);
+    cache.set("tipsEnabled", _tipsEnabled);
   }
 
 
@@ -146,6 +151,30 @@ class _SettingsPageState extends State<SettingsPage> {
             onChanged: (value) {
               setState(() {
                 _hotConnectEnabled = value;
+              });
+              _saveSettings();
+            },
+          ),
+          SwitchListTile(
+            title: Text(
+              "screens.settings.enable_tips.title".tr(),
+              style: defaultTextStyle,
+            ),
+            subtitle: Text(
+               "screens.settings.enable_tips.subtitle".tr(),
+              style: TextStyle(
+                color: themeColors.secondaryTextColor,
+              ),
+            ),
+            secondary: Icon(Icons.lightbulb),
+            inactiveThumbColor: themeColors.primaryColor,
+            activeColor: themeColors.primaryColor,
+            activeTrackColor: themeColors.primaryColor.withAlpha(25),
+            inactiveTrackColor: Colors.grey.shade700.withAlpha(70),
+            value: _tipsEnabled,
+            onChanged: (value) {
+              setState(() {
+                _tipsEnabled = value;
               });
               _saveSettings();
             },

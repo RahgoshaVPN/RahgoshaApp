@@ -30,6 +30,9 @@
         "error_loading_servers": "Error loading servers: {}",
         "error": "Error: {}"
     },
+    "tips": {
+        "hold_to_copy": "You can hold on the profiles to copy them"
+    },
     "screens": {
         "root": {
             "home": "Home",
@@ -81,6 +84,10 @@
             "enable_auto_update": {
                 "title": "Enable Auto Update",
                 "subtitle": "Update servers when you open the app"
+            },
+            "enable_tips": {
+                "title": "Enable Tips",
+                "subtitle": "Show important tips in the app"
             },
             "update_interval": {
                 "description": "Select update interval (in hours):",

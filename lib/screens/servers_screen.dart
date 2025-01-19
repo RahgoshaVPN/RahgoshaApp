@@ -9,6 +9,7 @@ import 'package:rahgosha/common/logger.dart';
 import 'package:rahgosha/utils/custom_snackbar.dart';
 import 'package:rahgosha/utils/tools.dart';
 import 'package:rahgosha/common/theme.dart';
+import 'package:rahgosha/widgets/tip_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:rahgosha/utils/notifiers.dart';
@@ -109,6 +110,9 @@ class ServersScreenState extends State<ServersScreen> with AutomaticKeepAliveCli
               return SingleChildScrollView(
                 child: Column(
                   children: [
+                    if (areTipsEnabled()) ...[
+                      TipWidget(text: "tips.hold_to_copy".tr())
+                    ],
                     for (int i = 0; i < _serversProfiles!.length; i++) 
                       _buildProfileCard(
                         _decodeRemark(_serversProfiles!.keys.elementAt(i)),
