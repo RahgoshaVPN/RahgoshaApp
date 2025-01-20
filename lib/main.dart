@@ -102,6 +102,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         textTheme: defaultTextTheme,
         scaffoldBackgroundColor: themeColors.backgroundColor,
+        brightness: Brightness.dark
       ),
       debugShowCheckedModeBanner: false,
       localizationsDelegates: context.localizationDelegates,
