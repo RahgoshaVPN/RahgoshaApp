@@ -72,12 +72,12 @@ launcher_name:
 
 flutter_native_splash:
   color: "#121212"
-  image: assets/icons/ic_launcher_foreground.png
+  image: assets/images/blank.png
   android_gravity: fill
   android_12:
     android_gravity: fill
     color: "#1E1E1E"
-    image: assets/icons/ic_launcher_foreground.png
+    image: assets/images/blank.png
 
 flutter_launcher_icons:
   android: true
