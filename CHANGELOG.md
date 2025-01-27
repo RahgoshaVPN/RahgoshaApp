@@ -1,3 +1,21 @@
+## [1.0.0-alpha.16](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.15...v1.0.0-alpha.16) (2025-01-27)
+
+### 🚀 Features
+
+* Implement theme provider and update UI components for theme support ([c6d0776](https://github.com/RahgoshaVPN/RahgoshaApp/commit/c6d0776d1052a8db010c246f916e863c88b66f97))
+
+### 🐛 Bug Fixes
+
+* Update flutter_v2ray dependency URL to the correct repository and change core to mahsa xray core ([8a9e28d](https://github.com/RahgoshaVPN/RahgoshaApp/commit/8a9e28dd3a8c38b706da307de0488dd42b44be29))
+
+### 🚧 Refactors
+
+* Changed splash screen image with a blank one ([69c9e98](https://github.com/RahgoshaVPN/RahgoshaApp/commit/69c9e98d02e97aec251816b99b928614f916829d))
+
+### ✨ Styles
+
+* Changed brightness to dark ([668c4d3](https://github.com/RahgoshaVPN/RahgoshaApp/commit/668c4d3cfd4df6cc7120f0dae2409c0d5c213632))
+
 ## [1.0.0-alpha.15](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.14...v1.0.0-alpha.15) (2025-01-19)
 
 ### 🚀 Features
