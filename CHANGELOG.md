@@ -1,3 +1,9 @@
+## [1.0.0-alpha.17](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.16...v1.0.0-alpha.17) (2025-01-27)
+
+### 🔥 Hot Fixes
+
+* Update disabledColor in theme colors to use grey for better consistency ([48650b3](https://github.com/RahgoshaVPN/RahgoshaApp/commit/48650b3f3bdb21f7c7cc9f622e5f1084cc853f28))
+
 ## [1.0.0-alpha.16](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.15...v1.0.0-alpha.16) (2025-01-27)
 
 ### 🚀 Features
