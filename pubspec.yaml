@@ -37,7 +37,7 @@ dependencies:
   window_size: ^0.1.0
   flutter_v2ray:
     git:
-      url: https://github.com/motad-dev/flutter_v2ray
+      url: https://github.com/SaintBanana/flutter_v2ray
   shared_preferences: ^2.3.3
   country_flags: ^3.1.0
   logging: ^1.3.0
