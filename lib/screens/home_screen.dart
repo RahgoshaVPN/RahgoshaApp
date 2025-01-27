@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 import 'package:country_flags/country_flags.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_v2ray/flutter_v2ray.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +16,7 @@ import 'package:rahgosha/widgets/home/connection_widget.dart';
 import 'package:rahgosha/widgets/home/server_selection_modal.dart';
 import 'package:rahgosha/common/theme.dart';
 import 'package:rahgosha/widgets/home/vpn_card.dart';
-import 'package:rahgosha/utils/notifiers.dart';
+import 'package:rahgosha/utils/providers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -95,12 +96,17 @@ class _HomeScreenState extends State<HomeScreen>
     }
 
     final urlNotifier = context.read<V2RayURLNotifier>();
+    final themeProvider = context.read<ThemeProvider>();
     urlNotifier.addListener(_onV2RayURLChanged);
+    themeProvider.addListener(() => SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        systemNavigationBarColor: themeProvider.getColors(context).secondaryBackgroundColor,
+        systemNavigationBarIconBrightness: themeProvider.getColors(context).brightness
+      ))
+    );
   }
   void _onV2RayURLChanged() async {
     final urlNotifier = context.read<V2RayURLNotifier>();
     final url = urlNotifier.url;
-
     await disconnectServer(); // Ensure the server disconnects first
     await Future.delayed(Duration(milliseconds: 100)); // Non-blocking delay
     connectServer(url); // Connect to the new server
@@ -308,7 +314,10 @@ class _HomeScreenState extends State<HomeScreen>
     await flutterV2ray.stopV2Ray();
   }
 
+  
+
   void handleServerSelection(server) {
+    final ThemeColors themeColors = Provider.of<ThemeProvider>(context, listen: false).getColors(context);
     if (v2rayStatus.value.state == "CONNECTED") {
       showDialog(
         context: context,
@@ -441,11 +450,14 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final ThemeColors themeColors = context.watch<ThemeProvider>().getColors(context);
+
 
     Future<List<Widget>> optionsFuture = loadOptions(
       handleServerSelection,
       selectedServer,
       ["DE", "FI", "NL", "FR", "US", "CA", "GB", "SE"],
+      themeColors
     );
 
     return Scaffold(
@@ -595,6 +607,7 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
 Widget _buildDelayDisplay() {
+  final ThemeColors themeColors = Provider.of<ThemeProvider>(context).getColors(context);
   return Directionality(
     textDirection: ui.TextDirection.ltr,
     child: SizedBox(
@@ -605,14 +618,14 @@ Widget _buildDelayDisplay() {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(CupertinoIcons.wifi, color: Colors.white, size: 18),
+            Icon(CupertinoIcons.wifi, color: themeColors.textColor, size: 18),
             const SizedBox(width: 8),
             if (connectedServerDelay == null)
               Container(
                 width: 50,
                 height: 18,
                 decoration: BoxDecoration(
-                  color: Colors.white.withAlpha(50),
+                  color: themeColors.textColor.withAlpha(50),
                   borderRadius: BorderRadius.circular(12),
                 ),
               )
@@ -621,7 +634,8 @@ Widget _buildDelayDisplay() {
                 'actions.timeout'.tr(),
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontFamily: "Vazirmatn"
+                  fontFamily: "Vazirmatn",
+                  color: themeColors.textColor
                 ),
               ),
             ]
@@ -633,11 +647,12 @@ Widget _buildDelayDisplay() {
                 ),
               ),
               const SizedBox(width: 4),
-              const Text(
+              Text(
                 'ms',
                 style: TextStyle(
                   fontFamily: "Vazirmatn",
                   fontWeight: FontWeight.bold,
+                  color: themeColors.textColor
                 ),
               ),
             ],

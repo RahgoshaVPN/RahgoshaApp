@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:rahgosha/screens/donate_screen.dart';
 import 'package:rahgosha/screens/settings_page.dart';
 import 'package:rahgosha/utils/appcache.dart';
 import 'package:rahgosha/common/theme.dart';
+import 'package:rahgosha/utils/providers.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});
@@ -13,12 +15,12 @@ class DrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final ThemeColors themeColors = context.watch<ThemeProvider>().getColors(context);
     final defaultTextStyle = TextStyle(
       color: themeColors.textColor,
       fontWeight: FontWeight.w500,
       fontSize: 13,
     );
-
     return Drawer(
       backgroundColor: themeColors.secondaryBackgroundColor,
       width: 240,

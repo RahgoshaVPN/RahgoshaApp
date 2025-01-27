@@ -13,7 +13,8 @@
         "no": "No",
         "is_connected": "Rahgosha is connected",
         "copied_message": "{} copied to your clipboard",
-        "profile": "Profile"
+        "profile": "Profile",
+        "close": "Close"
     },
     "actions": {
         "cancel": "Cancel",
@@ -76,6 +77,17 @@
                 "title": "Language",
                 "subtitle": "Change the app language",
                 "select_language": "Select Language"
+            },
+            "app_theme": {
+                "title": "App Theme",
+                "subtitle": "Change the app theme",
+                "select_theme": "Select Theme",
+                "themes": {
+                    "system": "Use System Theme",
+                    "light": "Light Mode",
+                    "dark": "Dark Mode",
+                    "black": "Black Mode"
+                }
             },
             "enable_hot_connect": {
                 "title": "Enable Hot Connect",

@@ -4,8 +4,10 @@ import 'dart:io';
 import 'package:country_flags/country_flags.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rahgosha/common/logger.dart';
 import 'package:rahgosha/common/theme.dart';
+import 'package:rahgosha/utils/providers.dart';
 
 class VpnCard extends StatefulWidget {
   final int downloadSpeed;
@@ -37,6 +39,7 @@ class _VpnCardState extends State<VpnCard> {
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
+    final ThemeColors themeColors = context.watch<ThemeProvider>().getColors(context);
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
@@ -66,7 +69,7 @@ class _VpnCardState extends State<VpnCard> {
                 child: Text(
                   widget.duration,
                   style: TextStyle(
-                    color: Colors.grey[300],
+                    color: themeColors.textColor,
                     fontSize: 18,
                   ),
                 ),
@@ -117,7 +120,7 @@ class _VpnCardState extends State<VpnCard> {
                       Text(
                         widget.selectedServer,
                         style: TextStyle(
-                          color: Colors.grey[300],
+                          color: themeColors.textColor,
                           fontSize: 16,
                         ),
                       ),
@@ -184,12 +187,13 @@ class _VpnCardState extends State<VpnCard> {
   }
 
   Widget _buildIpButton() {
+    final ThemeColors themeColors = context.watch<ThemeProvider>().getColors(context);
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFF353535),
+        color: themeColors.backgroundColor.withAlpha(25),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: Colors.white.withAlpha(25),
+          color: Colors.grey.withAlpha(25),
         ),
       ),
       child: Material(
@@ -283,11 +287,12 @@ class _VpnCardState extends State<VpnCard> {
     required String upload,
     required String status,
   }) {
+    final ThemeColors themeColors = context.watch<ThemeProvider>().getColors(context);
     return Row(
       children: [
         Icon(
           icon,
-          color: themeColors.primaryColor,
+          color: themeColors.enabledColor,
           size: 20,
         ),
         SizedBox(width: 8),
@@ -306,14 +311,14 @@ class _VpnCardState extends State<VpnCard> {
             Text(
               "⬇️ $download",
               style: TextStyle(
-                color: Colors.grey[300],
+                color: themeColors.textColor,
                 fontSize: 13,
               ),
             ),
             Text(
               "⬆️ $upload",
               style: TextStyle(
-                color: Colors.grey[300],
+                color: themeColors.textColor,
                 fontSize: 13,
               ),
             ),

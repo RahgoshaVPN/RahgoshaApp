@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:installed_apps/installed_apps.dart';
 import 'package:installed_apps/app_info.dart';
+import 'package:provider/provider.dart';
 import 'package:rahgosha/common/theme.dart';
+import 'package:rahgosha/utils/providers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BlockedAppsWidgets extends StatefulWidget {
@@ -119,6 +121,7 @@ class _BlockedAppsWidgetsState extends State<BlockedAppsWidgets>
 
   @override
   Widget build(BuildContext context) {
+    final ThemeColors themeColors = context.watch<ThemeProvider>().getColors(context);
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
@@ -188,7 +191,7 @@ class _BlockedAppsWidgetsState extends State<BlockedAppsWidgets>
                     onChanged: (bool? value) {
                       _toggleBlockedApp(app.packageName);
                     },
-                    activeColor: themeColors.primaryColor,
+                    activeColor: themeColors.enabledColor,
                     checkColor: Colors.black,
                     
                   ),

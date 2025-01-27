@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:rahgosha/common/theme.dart';
 import 'package:rahgosha/utils/custom_snackbar.dart';
+import 'package:rahgosha/utils/providers.dart';
 
 class DonateScreen extends StatelessWidget {
   const DonateScreen({super.key});
@@ -51,6 +53,7 @@ Future<void> _loadAssets(BuildContext context) async {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeColors themeColors = context.watch<ThemeProvider>().getColors(context);
     return FutureBuilder<void>(
       future: _loadAssets(context),
       builder: (context, snapshot) {
@@ -59,7 +62,7 @@ Future<void> _loadAssets(BuildContext context) async {
             backgroundColor: themeColors.backgroundColor,
             body: Center(
               child: CircularProgressIndicator(
-                color: themeColors.primaryColor,
+                color: themeColors.enabledColor,
               ),
             ),
           );
@@ -94,9 +97,10 @@ Future<void> _loadAssets(BuildContext context) async {
     const String usdtEthWallet = "0xDbE82d5D542a8646EA124916F110f4c3583A7a2D";
     const String usdtTrxWallet = "TAVPaGwUJDvtiDiG582z7RAE5HGtbDyzRa";
     const String usdtSolWallet = "TAVPaGwUJDvtiDiG582z7RAE5HGtbDyzRa";
+    final ThemeColors themeColors = context.watch<ThemeProvider>().getColors(context);
 
 
-    TextStyle textStyle = TextStyle(
+    final TextStyle textStyle = TextStyle(
       color: themeColors.secondaryTextColor,
       fontFamily: "Vazirmatn"
     );
@@ -330,7 +334,7 @@ Future<void> _loadAssets(BuildContext context) async {
                     backgroundColor: themeColors.backgroundColor,
                     collapsedBackgroundColor: themeColors.backgroundColor,
                     shape: Border(),
-                    iconColor: themeColors.primaryColor,
+                    iconColor: themeColors.enabledColor,
                     leading: Image.asset(
                       "assets/images/crypto-logos/usdt-logo.png",
                       width: 30,

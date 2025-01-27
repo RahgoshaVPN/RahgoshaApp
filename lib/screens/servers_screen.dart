@@ -12,7 +12,7 @@ import 'package:rahgosha/common/theme.dart';
 import 'package:rahgosha/widgets/tip_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:rahgosha/utils/notifiers.dart';
+import 'package:rahgosha/utils/providers.dart';
 
 class ServersScreen extends StatefulWidget {
   const ServersScreen({super.key});
@@ -26,6 +26,7 @@ class ServersScreenState extends State<ServersScreen> with AutomaticKeepAliveCli
   int _selectedIndex = 0;
   Future<Map<String, dynamic>?>? _futureData;
   Map<String, dynamic>? _serversProfiles;
+  bool isReconnecting = false;
 
   @override
   void initState() {
@@ -50,6 +51,7 @@ class ServersScreenState extends State<ServersScreen> with AutomaticKeepAliveCli
 
   void _onV2RayStatusChanged() => setState(() {
     _futureData = _loadOptions();
+    
     _initializeSelectedIndex();
   });
 
@@ -91,6 +93,7 @@ class ServersScreenState extends State<ServersScreen> with AutomaticKeepAliveCli
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final ThemeColors themeColors = context.watch<ThemeProvider>().getColors(context);
     return Scaffold(
       body: SafeArea(
         child: FutureBuilder<Map<String, dynamic>?>(
@@ -169,6 +172,7 @@ class ServersScreenState extends State<ServersScreen> with AutomaticKeepAliveCli
   bool get wantKeepAlive => true;
   
   Widget _buildProfileCard(String name, int index, int delay) {
+    final ThemeColors themeColors = context.watch<ThemeProvider>().getColors(context);
     return Directionality(
       textDirection: ui.TextDirection.ltr,
       child: Card(
@@ -183,7 +187,7 @@ class ServersScreenState extends State<ServersScreen> with AutomaticKeepAliveCli
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: _selectedIndex == index
-                    ? themeColors.primaryColor
+                    ? themeColors.enabledColor
                     : themeColors.backgroundColor,
               ),
             ),
@@ -284,7 +288,7 @@ class ServersScreenState extends State<ServersScreen> with AutomaticKeepAliveCli
     if (delay < 2000) {
       delayColor = Colors.green;
     } else if (delay < 3000) {
-      delayColor = Colors.yellow;
+      delayColor = Colors.amber;
     } else {
       delayColor = Colors.red;
     }

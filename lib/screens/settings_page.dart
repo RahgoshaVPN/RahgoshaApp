@@ -1,10 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:rahgosha/common/logger.dart';
 import 'package:rahgosha/utils/appcache.dart';
+import 'package:rahgosha/utils/providers.dart';
 import 'package:rahgosha/utils/tools.dart';
+import 'package:rahgosha/widgets/selectable_dialog_widget.dart';
 import 'package:rahgosha/widgets/settings/blocked_apps_widget.dart';
-import 'package:rahgosha/widgets/settings/languages_widget.dart';
 import 'package:rahgosha/common/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,6 +27,7 @@ class _SettingsPageState extends State<SettingsPage> {
   bool _tipsEnabled = true;
   double _updateInterval = 1.0;
   String? _selectedLanguage;
+  String _appTheme = "system";
 
   @override
   void initState() {
@@ -43,6 +48,7 @@ class _SettingsPageState extends State<SettingsPage> {
     _autoUpdateEnabled = prefs.getBool('autoUpdateEnabled') ?? true;
     _hotConnectEnabled = prefs.getBool('hotConnectEnabled') ?? true;
     _tipsEnabled = prefs.getBool('tipsEnabled') ?? true;
+    _appTheme = prefs.getString("appTheme") ?? "system";
     setState(() {});
   }
 
@@ -52,6 +58,8 @@ class _SettingsPageState extends State<SettingsPage> {
     await prefs.setBool('hotConnectEnabled', _hotConnectEnabled);
     await prefs.setBool("tipsEnabled", _tipsEnabled);
     await prefs.setDouble("updateInterval", _updateInterval);
+    await prefs.setString("appTheme", _appTheme);
+    cache.set("appTheme", _appTheme);
     cache.set("tipsEnabled", _tipsEnabled);
   }
 
@@ -59,6 +67,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeColors themeColors = context.watch<ThemeProvider>().getColors(context);
 
     final defaultTextStyle = TextStyle(
       color: themeColors.textColor,
@@ -82,6 +91,31 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       body: ListView(
         children: [
+          ListTile(
+            title: Text(
+              "screens.settings.app_theme.title".tr(),
+              style: defaultTextStyle,
+            ),
+            subtitle: Text(
+              "screens.settings.app_theme.subtitle".tr(),
+              style: TextStyle(
+                color: themeColors.secondaryTextColor,
+              ),
+            ),
+            leading: Icon(Icons.palette),
+            onTap: () => showDialog(
+              context: context, 
+              builder: (context) => SelectableDialog(
+                titleKey: "screens.settings.app_theme.select_theme", 
+                items: [
+                  _buildThemeTile(context, "system", themeColors),
+                  _buildThemeTile(context, "light", themeColors),
+                  _buildThemeTile(context, "dark", themeColors),
+                  _buildThemeTile(context, "black", themeColors),
+                ]
+              ),
+            )
+          ),
           ListTile(
             title: Text(
               "screens.settings.blocked_apps.title".tr(),
@@ -113,20 +147,18 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
             leading: Icon(Icons.language),
-            onTap: () {
-              Navigator.push(
-                context, 
-                MaterialPageRoute(
-                  builder: (context) => LanguageWidget(
-                    selectedLanguage: _selectedLanguage!,
-                  ),
-                ),
+            onTap: () => showDialog(
+              context: context, 
+              builder: (context) => SelectableDialog(
+                titleKey: "screens.settings.language.select_language", 
+                items: [
+                  _buildLanguageTile(context, 'English', themeColors),
+                  _buildLanguageTile(context, 'فارسی', themeColors),
+                ]
               )
-              .then((value) {
-                _loadSelectedLanguage();
-              });
-            },
+            ),
           ),
+
           const Divider(
             color: Colors.grey,
             thickness: 0.7,
@@ -143,9 +175,9 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
             secondary: Icon(FontAwesomeIcons.fire),
-            inactiveThumbColor: themeColors.primaryColor,
-            activeColor: themeColors.primaryColor,
-            activeTrackColor: themeColors.primaryColor.withAlpha(25),
+            inactiveThumbColor: themeColors.disabledColor,
+            activeColor: themeColors.enabledColor,
+            activeTrackColor: themeColors.enabledColor.withAlpha(25),
             inactiveTrackColor: Colors.grey.shade700.withAlpha(70),
             value: _hotConnectEnabled,
             onChanged: (value) {
@@ -167,9 +199,9 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
             secondary: Icon(Icons.lightbulb),
-            inactiveThumbColor: themeColors.primaryColor,
-            activeColor: themeColors.primaryColor,
-            activeTrackColor: themeColors.primaryColor.withAlpha(25),
+            inactiveThumbColor: themeColors.disabledColor,
+            activeColor: themeColors.enabledColor,
+            activeTrackColor: themeColors.enabledColor.withAlpha(25),
             inactiveTrackColor: Colors.grey.shade700.withAlpha(70),
             value: _tipsEnabled,
             onChanged: (value) {
@@ -194,9 +226,9 @@ class _SettingsPageState extends State<SettingsPage> {
                         color: themeColors.secondaryTextColor,
                       ),
                     ),
-                    inactiveThumbColor: themeColors.primaryColor,
-                    activeColor: themeColors.primaryColor,
-                    activeTrackColor: themeColors.primaryColor.withAlpha(25),
+                    inactiveThumbColor: themeColors.disabledColor,
+                    activeColor: themeColors.enabledColor,
+                    activeTrackColor: themeColors.enabledColor.withAlpha(25),
                     inactiveTrackColor: Colors.grey.shade700.withAlpha(70),
                     value: _autoUpdateEnabled,
                     onChanged: (value) {
@@ -236,7 +268,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             min: 1,
                             max: 24,
                             divisions: 23,
-                            activeColor: themeColors.primaryColor,
+                            activeColor: themeColors.enabledColor,
                             label: "screens.settings.update_interval.label".tr(
                               args: [localizeNumber(_updateInterval.toInt())]
                             ),
@@ -246,7 +278,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 _saveSettings();
                               });
                             },
-                            inactiveColor: themeColors.primaryColor.withAlpha(25),
+                            inactiveColor: themeColors.disabledColor.withAlpha(25),
                         ),
                       )
                     ],
@@ -256,6 +288,90 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ],
       ),
+    );
+  }
+
+  Future<void> _saveSelectedLanguage(String language) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('selectedLanguage', language);
+  }
+
+  void _changeLocale(BuildContext context, String language) {
+    Locale? newLocale;
+    switch (language) {
+      case 'English':
+        newLocale = Locale('en', 'US');
+        break;
+      case 'فارسی':
+        newLocale = Locale('fa', 'IR');
+        break;
+      default:
+        return;
+    }
+
+    context.setLocale(newLocale);
+  }
+
+
+  Widget _buildLanguageTile(
+    BuildContext context, String language, ThemeColors themeColors) {
+    return ListTile(
+      title: Text(
+        language,
+        style: TextStyle(color: themeColors.textColor),
+      ),
+      leading: Radio<String>(
+        activeColor: themeColors.enabledColor,
+        value: language,
+        groupValue: _selectedLanguage,
+        onChanged: (String? value) {
+          setState(() {
+            logger.debug(value);
+            _selectedLanguage = value!;
+            _saveSelectedLanguage(value);
+            _changeLocale(context, value);
+          });
+        },
+      ),
+      onTap: () {
+        setState(() {
+            logger.debug(language);
+          _selectedLanguage = language;
+          _saveSelectedLanguage(language);
+          _changeLocale(context, language);
+        });
+      },
+    );
+  }
+
+  Widget _buildThemeTile(BuildContext context, String themeValue, ThemeColors themeColors) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    return ListTile(
+      title: Text(
+        "screens.settings.app_theme.themes.$themeValue".tr(),
+        style: Theme.of(context).textTheme.labelLarge,
+      ),
+      leading: Radio<String>(
+        activeColor: themeColors.enabledColor,
+        value: themeValue,
+        groupValue: _appTheme,
+        onChanged: (String? value) {
+          if (value != null) {
+            setState(() {
+              _saveSettings();
+              _appTheme = value;
+              provider.updateTheme(AppTheme.fromString(value));
+            });
+          }
+        },
+      ),
+      onTap: () {
+        setState(() {
+          _saveSettings();
+          _appTheme = themeValue;
+          provider.updateTheme(AppTheme.fromString(themeValue)); 
+        });
+      },
     );
   }
 }

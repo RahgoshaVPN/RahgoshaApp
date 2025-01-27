@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:country_flags/country_flags.dart';
+import 'package:provider/provider.dart';
 import 'package:rahgosha/common/logger.dart';
 import 'package:rahgosha/utils/appcache.dart';
+import 'package:rahgosha/utils/providers.dart';
 import 'package:rahgosha/utils/tools.dart';
 import 'package:rahgosha/common/theme.dart';
 
@@ -21,6 +23,7 @@ class ServerSelectionModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     logger.debug("Selected server: $selectedServer");
+    final ThemeColors themeColors = context.watch<ThemeProvider>().getColors(context);
     return SingleChildScrollView(
       child: Container(
         decoration: BoxDecoration(
@@ -100,6 +103,7 @@ Future<List<Widget>> loadOptions(
   Function(String) onTap,
   String selectedServer,
   List<String> recommendedServers,
+  ThemeColors themeColors
 ) async {
   Map<String, dynamic> jsonData = cache.get("servers") ?? await fetchServers();
   List<String> countryCodes = List<String>.from(jsonData["locations"]["byCountryCode"]);

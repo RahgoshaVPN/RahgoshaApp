@@ -14,7 +14,7 @@ import 'package:rahgosha/widgets/drawer.dart';
 import 'package:rahgosha/common/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:rahgosha/utils/notifiers.dart';
+import 'package:rahgosha/utils/providers.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,16 +26,14 @@ void main() async {
     _getAppVersion(),
   ]);
 
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor: themeColors.secondaryBackgroundColor,
-      systemNavigationBarIconBrightness: Brightness.light,
-    ));
+
 
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => V2RayStatusNotifier()),
         ChangeNotifierProvider(create: (_) => V2RayURLNotifier()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ],
       child: EasyLocalization(
         supportedLocales: const [
@@ -59,6 +57,10 @@ Future<void> _initializeApp() async {
 
     // Fetch shared preferences asynchronously
     final prefs = await SharedPreferences.getInstance();
+    String theme = prefs.getString("appTheme") ?? "system";
+    logger.debug("Theme on main: $theme");
+    cache.set("appTheme", theme);
+    
 
     // Read user choice from preferences
     final userChoice = prefs.getString("userChoice");
@@ -97,6 +99,31 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeColors themeColors = context.watch<ThemeProvider>().getColors(context);
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: themeColors.secondaryBackgroundColor,
+      systemNavigationBarIconBrightness: themeColors.brightness
+    ));
+    final defaultTextStyle = 
+    TextStyle(
+      fontFamily: "Vazirmatn", 
+      fontFamilyFallback: ["Emoji"],
+      color: themeColors.secondaryTextColor
+    );
+
+
+  final defaultTextTheme = TextTheme(
+    titleLarge: defaultTextStyle,
+    titleMedium: defaultTextStyle,
+    titleSmall: defaultTextStyle,
+    
+    bodyLarge: defaultTextStyle,
+    bodyMedium: defaultTextStyle,
+    bodySmall: defaultTextStyle,
+    labelLarge: defaultTextStyle,
+    labelMedium: defaultTextStyle,
+    labelSmall: defaultTextStyle,
+  );
     return MaterialApp(
       theme: ThemeData(
         useMaterial3: true,
@@ -135,7 +162,7 @@ class _MainAppState extends State<MainApp> {
       HomeScreen(),
       ServersScreen(),
     ];
-
+    final ThemeColors themeColors = context.watch<ThemeProvider>().getColors(context);
     return Scaffold(
       appBar: CustomAppBar(),
       bottomNavigationBar: NavigationBarTheme(
@@ -179,7 +206,7 @@ class _MainAppState extends State<MainApp> {
           elevation: 0,
           overlayColor: WidgetStateColor.transparent,
           indicatorColor: themeColors.secondaryTextColor.withAlpha(125),
-          surfaceTintColor: themeColors.primaryColor,
+          surfaceTintColor: themeColors.enabledColor,
         ),
       ),
       body: IndexedStack(

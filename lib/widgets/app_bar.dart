@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:rahgosha/screens/settings_page.dart';
 import 'package:rahgosha/common/theme.dart';
+import 'package:rahgosha/utils/providers.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -13,9 +15,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeColors themeColors = context.watch<ThemeProvider>().getColors(context);
     return AppBar(
       backgroundColor: themeColors.secondaryBackgroundColor,
-      surfaceTintColor: themeColors.primaryColor,
+      surfaceTintColor: themeColors.backgroundColor,
       scrolledUnderElevation: 4.0,
       elevation: 0,
       title: Text(

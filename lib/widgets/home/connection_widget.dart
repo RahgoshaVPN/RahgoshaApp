@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:provider/provider.dart';
 import 'package:rahgosha/common/theme.dart';
+import 'package:rahgosha/utils/providers.dart';
 
 class ConnectionWidget extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
@@ -25,12 +27,13 @@ class ConnectionWidget extends StatefulWidget {
 class _ConnectionWidgetState extends State<ConnectionWidget> {
 
   Color get currentColor {
+  final ThemeColors themeColors = context.watch<ThemeProvider>().getColors(context);
   if (widget.isLoading) {
-    return themeColors.secondaryColor; 
+    return themeColors.loadingColor; 
   } else if (widget.isConnected) {
-    return themeColors.primaryColor; 
+    return themeColors.connectedButtonColor; 
   } else {
-    return themeColors.redColor;
+    return themeColors.disconnectedButton;
   }
 }
 
