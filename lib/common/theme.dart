@@ -83,7 +83,7 @@ class LightThemeColors extends ThemeColors {
   @override
   Color get enabledColor => Colors.green.shade600;
   @override
-  Color get disabledColor=> Colors.red.shade600;
+  Color get disabledColor=> Colors.grey;
   @override
   Brightness get brightness => Brightness.light;
 
@@ -109,7 +109,7 @@ class BlackThemeColors extends ThemeColors {
   @override
   Color get enabledColor => Color(0xFF3DFFB6);
   @override
-  Color get disabledColor=> Color(0xFFF44336);
+  Color get disabledColor=> Colors.grey;
   @override
   Brightness get brightness => Brightness.dark;
 }
