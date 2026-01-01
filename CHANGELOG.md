@@ -1,3 +1,9 @@
+## [1.0.0-alpha.18](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.17...v1.0.0-alpha.18) (2026-01-01)
+
+### 🐛 Bug Fixes
+
+* Update proxy url ([5b83f86](https://github.com/RahgoshaVPN/RahgoshaApp/commit/5b83f86370bf9290d3487e44697e935ffd9337ff))
+
 ## [1.0.0-alpha.17](https://github.com/RahgoshaVPN/RahgoshaApp/compare/v1.0.0-alpha.16...v1.0.0-alpha.17) (2025-01-27)
 
 ### 🔥 Hot Fixes
