@@ -10,7 +10,7 @@ import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<Map<String, dynamic>> fetchServers() async {
-  final url = Uri.parse("https://raw.githubusercontent.com/RahgoshaVPN/Rahgosha-Proxies/refs/heads/master/data.json");
+  final url = Uri.parse("https://raw.githubusercontent.com/M-logique/Proxies/refs/heads/main/proxies/byLocation.json");
   
   
   final client = HttpClient();
